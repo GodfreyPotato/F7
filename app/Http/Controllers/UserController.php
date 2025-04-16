@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Users;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -24,7 +24,7 @@ class UserController extends Controller
             'password'  => 'required|min:6|confirmed',
         ]);
 
-        Users::create([
+        User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
@@ -36,7 +36,28 @@ class UserController extends Controller
     }
 
     // Login
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
 
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (\Illuminate\Support\Facades\Auth::attempt($credentials)) {
+            return redirect()->intended('/');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
 
     // Logout
 
