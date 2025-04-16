@@ -11,6 +11,17 @@
 </head>
 
 <body>
+
+    <div class="bg-primary d-flex flex-column px-5 py-2">
+        <h2 class="text-white">Form 7</h2>
+        <nav>
+            <ul class="d-flex list-unstyled gap-4 text-white">
+                <li>Home</li>
+                <li>About</li>
+                <li>Add Form</li>
+            </ul>
+        </nav>
+    </div>
     @yield('content')
 </body>
 
