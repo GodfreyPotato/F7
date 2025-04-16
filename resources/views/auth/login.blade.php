@@ -30,6 +30,8 @@
 
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
+            <div class="mt-3">Doesn't have an account? <a href="{{route('auth.register')}}">Sign Up</a> </div>
+            <div class="mt-3">Forgot Password? <a href="{{route('password.request')}}">Reset Password</a> </div>
         </div>
     </div>
 @endsection

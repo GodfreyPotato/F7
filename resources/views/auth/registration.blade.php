@@ -47,6 +47,8 @@
 
                 <button type="submit" class="btn btn-primary w-100">Register</button>
             </form>
+            <div class="mt-3">Already have an account? <a href="{{route('auth.login')}}">Login</a> </div>
         </div>
+
     </div>
 @endsection
