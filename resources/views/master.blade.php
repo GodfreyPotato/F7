@@ -12,23 +12,32 @@
 
 <body>
 
-    <div class="bg-primary d-flex justify-content-between px-5 py-2">
+    <!-- <nav class="navbar navbar-dark navbar-expand-lg" 
+            style="background: linear-gradient(to right, #13459E, #287ECF);">
+            <div class="container">
+                <h2 class="navbar-brand fw-bold">Form 7<h2/>
+            </div>
+    </nav> -->
+
+    <div class="d-flex justify-content-between align-items-center px-5 py-2" style="background-color: #1E3A8A;">
         <div class="d-flex flex-column">
-            <h2 class="text-white">Form 7</h2>
-            <nav>
-                <ul class="d-flex list-unstyled gap-4 text-white">
+            <h2 class="text-light">Form 7</h2>
+            <!-- <nav>
+                <ul class="d-flex list-unstyled gap-4 text-dark">
                     <li>Home</li>
                     <li>About</li>
                     <li>Add Form</li>
                 </ul>
-            </nav>
+            </nav> -->
         </div>
 
         @if (auth()->check())
             <div>
-                <a href="{{route('auth.logout')}}" class="btn btn-danger btn-md">Log Out</a>
+                <a href="{{route('auth.logout')}}" class="btn d-flex align-items-center" style="background-color: #1D4ED8; color: white;">
+                    <img src="{{ asset('images/logout.png') }}" alt="Log Out" style="width: 23px; height: 23px; margin-right: 8px;">
+                    Log Out
+                </a>
             </div>
-
         @endif
     </div>
     @yield('content')
