@@ -22,14 +22,17 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name'      => 'required|string|max:255',
+            'firstname'      => 'required|string|max:255',
+            'lastname'      => 'required|string|max:255',
             'email'     => 'required|email|unique:users,email',
             'password'  => 'required|min:6|confirmed',
         ]);
 
         User::create([
-            'name'     => $request->name,
+            'firstname'     => $request->firstname,
+            'lastname'     => $request->lastname,
             'email'    => $request->email,
+            'department' => $request->department,
             'password' => Hash::make($request->password),
             'created_at' => now(),
             'updated_at' => now(),

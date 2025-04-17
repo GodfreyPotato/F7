@@ -1,13 +1,7 @@
 {{-- <h1> This is home</h1> --}}
 @extends('master')
 @section('content')
-    <!-- @if(auth()->check())
-        <h1>Welcome, {{ auth()->user()->name }}!</h1>
-    @else
-        <h1>This is home</h1>
-        <a href="{{route('auth.login')}}">Login Here</a>
-    @endif -->
-
+    @if(auth()->check())
     <div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
         <div class="container" >
             <!-- banner -->
@@ -128,4 +122,8 @@
             </div>
         </div>
     </div>
+    @else
+        <h1>This is home</h1>
+        <a href="{{route('auth.login')}}">Login Here</a>
+    @endif
 @endsection
