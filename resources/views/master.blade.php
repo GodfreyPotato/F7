@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="bg-primary d-flex justify-content-between px-5 py-2">
+    <div class="bg-primary d-flex justify-content-between align-items-center px-5 py-2">
         <div class="d-flex flex-column">
             <h2 class="text-white">Form 7</h2>
             <nav>

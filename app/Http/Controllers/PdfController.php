@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //needed for loadView
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PdfController extends Controller
 {
