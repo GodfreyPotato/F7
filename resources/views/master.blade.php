@@ -13,19 +13,25 @@
 <body>
     <div class="d-flex justify-content-between align-items-center px-5 py-2" style="background-color: #1E3A8A;">
         <div class="d-flex align-items-center justify-content-around w-50">
-           <h2 class="text-light">Form 7</h2>
-           <nav class="h-100">
-                <ul class="d-flex h-100 align-items-center list-unstyled gap-5 fw-semibold text-white mt-3">
-                    <li>Employee Records</li>
-                    <li>Attendance Logs</li>
-                </ul>
-            </nav>
+            <h2 class="text-light">Form 7</h2>
+            @if (auth()->check())
+                @if(auth()->user()->role == 'admin')
+                    <nav class="h-100">
+                        <ul class="d-flex h-100 align-items-center list-unstyled gap-5 fw-semibold text-white mt-3">
+                            <li>Employee Records</li>
+                            <li>Attendance Logs</li>
+                        </ul>
+                    </nav>
+                @endif
+            @endif
         </div>
 
         @if (auth()->check())
             <div>
-                <a href="{{route('auth.logout')}}" class="btn d-flex align-items-center" style="background-color: #1D4ED8; color: white;">
-                    <img src="{{ asset('images/logout.png') }}" alt="Log Out" style="width: 23px; height: 23px; margin-right: 8px;">
+                <a href="{{route('auth.logout')}}" class="btn d-flex align-items-center"
+                    style="background-color: #1D4ED8; color: white;">
+                    <img src="{{ asset('images/logout.png') }}" alt="Log Out"
+                        style="width: 23px; height: 23px; margin-right: 8px;">
                     Log Out
                 </a>
             </div>
@@ -34,7 +40,7 @@
     <div style="margin-top: 65px; margin-bottom: 90px;">
         @yield('content')
     </div>
-    
+
 </body>
 
 </html>
