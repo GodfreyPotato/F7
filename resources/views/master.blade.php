@@ -12,15 +12,14 @@
 
 <body>
     <div class="d-flex justify-content-between align-items-center px-5 py-2" style="background-color: #1E3A8A;">
-        <div class="d-flex flex-column">
-            <h2 class="text-light">Form 7</h2>
-            <!-- <nav>
-                <ul class="d-flex list-unstyled gap-4 text-dark">
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Add Form</li>
+        <div class="d-flex align-items-center justify-content-around w-50">
+           <h2 class="text-light">Form 7</h2>
+           <nav class="h-100">
+                <ul class="d-flex h-100 align-items-center list-unstyled gap-5 fw-semibold text-white mt-3">
+                    <li>Employee Records</li>
+                    <li>Attendance Logs</li>
                 </ul>
-            </nav> -->
+            </nav>
         </div>
 
         @if (auth()->check())
@@ -32,7 +31,10 @@
             </div>
         @endif
     </div>
-    @yield('content')
+    <div style="margin-top: 65px; margin-bottom: 90px;">
+        @yield('content')
+    </div>
+    
 </body>
 
 </html>
