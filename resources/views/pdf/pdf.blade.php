@@ -33,6 +33,7 @@
                 <td></td>
                 <td>w/ F6</td>
             </tr>
+
         </tbody>
     </table>
     <a href="{{route('pdfDownload')}}">Download</a>
