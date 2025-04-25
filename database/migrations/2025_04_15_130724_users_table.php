@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->enum('department', ['BSIT', 'BSMATH', 'BSCE', 'BSED', 'BSCoE', 'BSME', 'BSE', 'BSA', 'BSECE', 'ABEL', 'NI']);
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'employee']);
+            $table->enum('role', ['admin', 'employee'])->default('employee');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
