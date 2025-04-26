@@ -17,4 +17,15 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function attendances()
+{
+    return $this->hasMany(Attendance::class);
+}
+
+public function leaveRequests()
+{
+    return $this->hasMany(LeaveRequest::class);
+}
+
 }

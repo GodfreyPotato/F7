@@ -3,6 +3,7 @@
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
     Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
     Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
+
+    // Attendance routes
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
 });
 
 
