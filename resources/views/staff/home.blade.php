@@ -40,55 +40,108 @@
 
                     </div>
                     <div>
-                        <span style="font-size: 20px;" class="fw-light mb-3">{{now()->format('M d, Y g:i A')}} |
+                        <span style="font-size: 20px;" class="fw-light mb-3"><span id="clock"></span> |
                             <span class="fw-semibold"> {{now()->hour < 12 ? "Morning" : "Afternoon" }}</span></span>
                     </div>
                     <div class="d-flex justify-content-between mt-2">
-                        <div class="p-2 me-2 bg-danger"
-                            style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-                            <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
-                                <span class="fw-bold" style="font-size: 24px; margin: 0;">
-                                    {{$log == null ? "--:--" : Carbon\Carbon::parse($log->am_in)->format('g:i A')}} </span>
+                        @if (now()->hour == 3 && now()->minute == 40)
 
-                                @if ($log == null)
-                                    <form action="{{route('timeIn')}}" method="post">
-                                        @csrf
-                                        <button class="btn"
-                                            style="background-color: #1D4ED8; color: white; width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
-                                            Time In
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class=" fw-bold"
-                                        style="background-color:#D1FADF; color:#00764C;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Present</span>
-                                @endif
+                            <div class="p-2 me-2 "
+                                style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                                <div class="d-flex flex-column align-items-center justify-content-center text-center">
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
+                                    <span class="fw-bold" style="font-size: 24px; margin: 0;">
+                                        {{$log == null ? "--:--" : Carbon\Carbon::parse($log->am_in)->format('g:i A')}} </span>
 
+                                    @if ($log == null)
+                                        <form action="{{route('timeInAm')}}" method="post">
+                                            @csrf
+                                            <button class="btn"
+                                                style="background-color: #1D4ED8; color: white; width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
+                                                Time In
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class=" fw-bold"
+                                            style="background-color:#D1FADF; color:#00764C;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Present</span>
+                                    @endif
+
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="p-2 me-2 bg-danger"
-                            style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-                            <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
-                                <span class="fw-bold" style="font-size: 24px; margin: 0;">
-                                    {{$log == null ? "--:--" : Carbon\Carbon::parse($log->am_in)->format('g:i A')}} </span>
+                            <div class="p-2 me-2 "
+                                style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                                <div class="d-flex flex-column align-items-center justify-content-center text-center">
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time Out</p>
+                                    <span class="fw-bold" style="font-size: 24px; margin: 0;">
+                                        {{$log->am_out == null ? "--:--" : Carbon\Carbon::parse($log->am_out)->format('g:i A')}}
+                                    </span>
 
-                                @if ($log == null)
-                                    <form action="{{route('timeIn')}}" method="post">
-                                        @csrf
-                                        <button class="btn"
-                                            style="background-color: #1D4ED8; color: white; width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
-                                            Time In
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class=" fw-bold"
-                                        style="background-color:#D1FADF; color:#00764C;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Present</span>
-                                @endif
+                                    @if ($log->am_out == null)
+                                        <form action="{{route('timeOutAm')}}" method="post">
+                                            @csrf
+                                            <button class="btn"
+                                                style="background-color: #1D4ED8; color: white; width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
+                                                Time Out
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class=" fw-bold"
+                                            style="background-color:#BCBCBC; color:white;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Timed
+                                            Out</span>
+                                    @endif
 
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="p-2 me-2 "
+                                style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                                <div class="d-flex flex-column align-items-center justify-content-center text-center">
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
+                                    <span class="fw-bold" style="font-size: 24px; margin: 0;">
+                                        {{$log == null ? "--:--" : Carbon\Carbon::parse($log->pm_in)->format('g:i A')}} </span>
+
+                                    @if ($log->pm_in == null)
+                                        <form action="{{route('timeInPm')}}" method="post">
+                                            @csrf
+                                            <button class="btn"
+                                                style="background-color: #1D4ED8; color: white; width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
+                                                Time In
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class=" fw-bold"
+                                            style="background-color:#D1FADF; color:#00764C;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Present</span>
+                                    @endif
+
+                                </div>
+                            </div>
+
+                            <div class="p-2 me-2 "
+                                style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                                <div class="d-flex flex-column align-items-center justify-content-center text-center">
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time Out</p>
+                                    <span class="fw-bold" style="font-size: 24px; margin: 0;">
+                                        {{$log->pm_out == null ? "--:--" : Carbon\Carbon::parse($log->pm_out)->format('g:i A')}}
+                                    </span>
+
+                                    @if ($log->pm_out == null)
+                                        <form action="{{route('timeOutPm')}}" method="post">
+                                            @csrf
+                                            <button class="btn"
+                                                style="background-color: #1D4ED8; color: white; width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
+                                                Time Out
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class=" fw-bold"
+                                            style="background-color:#BCBCBC; color:white;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Timed
+                                            Out</span>
+                                    @endif
+
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -151,4 +204,15 @@
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("clock").textContent = now.toLocaleString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime(); 
+    </script>
 @endsection

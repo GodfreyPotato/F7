@@ -31,8 +31,10 @@ Route::middleware('auth')->group(function () {
 
 
     //time in / out
-    Route::post('/timein', [LogController::class, 'timeIn'])->name('timeIn');
-
+    Route::post('/timeInAm', [LogController::class, 'timeInAm'])->name('timeInAm');
+    Route::post('/timeOutAm', [LogController::class, 'timeOutAm'])->name('timeOutAm');
+    Route::post('/timeInPm', [LogController::class, 'timeInPm'])->name('timeInPm');
+    Route::post('/timeOutPm', [LogController::class, 'timeOutPm'])->name('timeOutPm');
 
     // Attendance routes
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
