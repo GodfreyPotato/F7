@@ -15,12 +15,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('firstname');
+            $table->string('middlename');
             $table->string('lastname');
-            $table->enum('department', ['BSIT', 'BSMATH', 'BSCE', 'BSED', 'BSCoE', 'BSME', 'BSE', 'BSA', 'BSECE', 'ABEL', 'NI']);
+            $table->enum('department', ['BSIT', 'BSMATH', 'BSCE', 'BSED', 'BSCoE', 'BSME', 'BSE', 'BSA', 'BSECE', 'ABEL', 'NI', 'BSEE']);
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'employee'])->default('employee');
+            $table->enum('role', ['admin', 'non-instructional', 'instructional']);
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

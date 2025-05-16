@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\StaffController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,9 +20,13 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     //testing 
-    Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
-    Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
-    Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
+    // Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
+    // Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
+    // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
+
+    Route::resource('staff', StaffController::class);
+    Route::resource('admin', AdminController::class);
+
 
     // Attendance routes
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
@@ -39,9 +47,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [UserController::class, 'resetPassword'])
         ->name('password.update');
 
-    Route::get('/login', [UserController::class, 'showLoginForm'])->name('auth.loginForm');
-    Route::post('/login', [UserController::class, 'login'])->name('auth.login');
 
-    Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('auth.registrationForm');
-    Route::post('/register', [UserController::class, 'register'])->name('auth.register');
+    Route::resource('/login', LoginController::class);
+    Route::resource('/registration', RegistrationController::class);
 });

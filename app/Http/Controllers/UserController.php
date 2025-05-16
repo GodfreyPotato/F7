@@ -13,66 +13,15 @@ class UserController extends Controller
 {
     //guys dito po ilalagay ung mga function na Login, Logout, Register, forgot password
 
-    // Registration
-    public function showRegistrationForm()
-    {
-        return view('auth.registration');
-    }
+    
 
-    public function register(Request $request)
-    {
-        $request->validate([
-            'firstname'      => 'required|string|max:255',
-            'lastname'      => 'required|string|max:255',
-            'email'     => 'required|email|unique:users,email',
-            'password'  => 'required|min:6|confirmed',
-        ]);
-
-        User::create([
-            'firstname'     => $request->firstname,
-            'lastname'     => $request->lastname,
-            'email'    => $request->email,
-            'department' => $request->department,
-            'password' => Hash::make($request->password),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        return redirect()->route('auth.registrationForm')->with('success', 'Registration successful!');
-    }
-
-    // Login
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|string',
-            'password' => 'required|string',
-        ]);
-
-        $credentials = DB::table('users')->where('email', $request->email)->first();
-
-        if ($credentials && Hash::check($request->password, $credentials->password)) {
-            Auth::loginUsingId($credentials->id);
-
-            return redirect()->route('welcome');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+   
     }
 
     // Logout
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('auth.login');
-    }
 
 
     // Forgot Password

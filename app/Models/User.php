@@ -18,14 +18,13 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function attendances()
-{
-    return $this->hasMany(Attendance::class);
-}
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
 
-public function leaveRequests()
-{
-    return $this->hasMany(LeaveRequest::class);
-}
-
+    public function leave()
+    {
+        return $this->hasMany(Leave::class);
+    }
 }
