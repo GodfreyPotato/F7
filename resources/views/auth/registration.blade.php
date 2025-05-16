@@ -20,7 +20,7 @@
                     </ul>
                 </div>
             @endif
-
+            <span>delete mot o fionah</span>
             <form method="POST" action="{{ route('registration.store') }}">
                 @csrf
 
