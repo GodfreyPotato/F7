@@ -5,6 +5,7 @@ use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StaffController;
@@ -27,6 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('staff', StaffController::class);
     Route::resource('admin', AdminController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+    //time in / out
+    Route::post('/timein', [LogController::class, 'timeIn'])->name('timeIn');
+
 
     // Attendance routes
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');

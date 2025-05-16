@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogController extends Controller
 {
@@ -61,5 +62,16 @@ class LogController extends Controller
     public function destroy(Log $log)
     {
         //
+    }
+
+    //TIME IN / OUT
+    public function timeIn()
+    {
+        $log = new Log;
+        $log->user_id = Auth::id();
+        $log->log_date = now();
+        $log->am_in = now();
+        $log->save();
+        return redirect()->route('staff.index');
     }
 }
