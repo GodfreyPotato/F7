@@ -35,8 +35,7 @@ class LoginController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password',
-            'required'
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -49,7 +48,7 @@ class LoginController extends Controller
             Auth::login($credentials);
 
 
-            if ($credentials->role == "instructional" || $credentials->role == "non-instructional") {
+            if ($credentials->role == "ins" || $credentials->role == "ni") {
                 return redirect()->route('staff.index');
             } else {
 

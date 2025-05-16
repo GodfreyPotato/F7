@@ -31,13 +31,14 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+        echo $request->department;
         //
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'middlename' => 'required',
             'lastname' => 'required',
             'department' => 'required',
-            'role' => 'required',
+
             'email' => 'required|email|unique:users',
 
         ]);
@@ -51,9 +52,16 @@ class RegistrationController extends Controller
         $user->middlename = $request->middlename;
         $user->lastname = $request->lastname;
         $user->department = $request->department;
-        $user->role = $request->role;
+
+
+        if ($request->department != "NI") {
+            $user->role = "ins";
+        } else {
+            $user->role = "ni";
+        }
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->save();
         return redirect()->route('login.index');
     }
 

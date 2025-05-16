@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
@@ -12,7 +14,11 @@ class StaffController extends Controller
     public function index()
     {
         //
-        return view('staff.home');
+        $log = Log::where('user_id', Auth::id())
+            ->whereDay('log_date', today())
+            ->orderBy('updated_at', 'desc')
+            ->first();
+        return view('staff.home', compact('log'));
     }
 
     /**

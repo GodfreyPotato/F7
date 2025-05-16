@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->enum('department', ['BSIT', 'BSMATH', 'BSCE', 'BSED', 'BSCoE', 'BSME', 'BSE', 'BSA', 'BSECE', 'ABEL', 'NI', 'BSEE']);
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'non-instructional', 'instructional']);
+            $table->enum('role', ['admin', 'ni', 'ins']);
             $table->string('password');
             $table->timestamps();
         });

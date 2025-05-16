@@ -31,6 +31,11 @@
                             required>
                     </div>
                     <div class="mb-3" style="width:45%;">
+                        <label for="name" class="form-label">Middle Name</label>
+                        <input type="text" name="middlename" class="form-control" id="name" value="{{ old('middlename') }}"
+                            required>
+                    </div>
+                    <div class="mb-3" style="width:45%;">
                         <label for="name" class="form-label">Last Name</label>
                         <input type="text" name="lastname" class="form-control" id="name" value="{{ old('lastname') }}"
                             required>
