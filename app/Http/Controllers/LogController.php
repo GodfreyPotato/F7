@@ -65,7 +65,36 @@ class LogController extends Controller
     }
 
     //TIME IN / OUT
-    public function timeIn()
+    public function timeInAm()
+    {
+        $log = new Log;
+        $log->user_id = Auth::id();
+        $log->log_date = now();
+        $log->am_in = now();
+        $log->save();
+        return redirect()->route('staff.index');
+    }
+    public function timeOutAm()
+    {
+        $log =  Log::where('user_id', Auth::id())
+            ->where('log_date', today())
+            ->orderBy('updated_at', 'desc')
+            ->first();
+
+        $log->am_out = now();
+        $log->save();
+        return redirect()->route('staff.index');
+    }
+    public function timeInPm()
+    {
+        $log = new Log;
+        $log->user_id = Auth::id();
+        $log->log_date = now();
+        $log->am_in = now();
+        $log->save();
+        return redirect()->route('staff.index');
+    }
+    public function timeOutPm()
     {
         $log = new Log;
         $log->user_id = Auth::id();
