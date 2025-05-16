@@ -25,7 +25,7 @@
             </div>
         @endif
     </div>
-    <div style="margin-top: 65px; margin-bottom: 90px;">
+    <div >
         @yield('content')
     </div>
 
