@@ -15,22 +15,28 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('auth.login') }}">
+            <form method="POST" action="{{ route('login.store') }}">
                 @csrf
 
                 <div class="mb-3">
+                    @error('email')
+                        <span>{{$message}}</span>
+                    @enderror
                     <label for="email" class="form-label">Email Address</label>
                     <input type="email" name="email" class="form-control" id="email" value="{{ old('email') }}" required>
                 </div>
 
                 <div class="mb-3">
+                    @error('password')
+                        <span>{{$message}}</span>
+                    @enderror
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" id="password" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
-            <div class="mt-3">Doesn't have an account? <a href="{{route('auth.register')}}">Sign Up</a> </div>
+            <div class="mt-3">Doesn't have an account? <a href="{{route('registration.index')}}">Sign Up</a> </div>
             <div class="mt-3">Forgot Password? <a href="{{route('password.request')}}">Reset Password</a> </div>
         </div>
     </div>

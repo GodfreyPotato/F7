@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('staff', StaffController::class);
     Route::resource('admin', AdminController::class);
-
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Attendance routes
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
