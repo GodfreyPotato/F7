@@ -9,8 +9,16 @@
                     <div class="d-flex flex-column justify-content-center">
                         <h1 style="margin-bottom: 0;">Welcome Back, {{ auth()->user()->firstname }}!</h1>
                         <p style="margin-bottom: 0;">Here's what's happening in your HR system today.</p>
-                        <span class="btn p-2 mt-3 text-white" style="background-color: #0d6efd;">Generate All
-                            Undertime</span>
+                        @if ($isGenerated->isGenerated == 0)
+                            <a href="{{route('generateAllUndertime')}}"> <span class="btn p-2 mt-3 text-white"
+                                    style="background-color: #0d6efd;">Generate All
+                                    Undertime Today</span></a>
+                        @else
+                            <span class="rounded p-2 mt-3 text-white"
+                                style="text-align: center; background-color: #0d6efd;">Work Today is
+                                Done!
+                                #Winning!</span>
+                        @endif
                     </div>
                     <div class="p-4" style="margin-bottom: 100px;">
                         <img src="{{ asset('images/Saly-10.png') }}" style="max-height: 350px;">

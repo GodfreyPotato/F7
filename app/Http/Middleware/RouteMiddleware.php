@@ -14,15 +14,15 @@ class RouteMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$roles): Response
+    public function handle(Request $request, Closure $next, ...$roles)
     {
         if (!Auth::check()) {
             return redirect()->route('login.index');
         }
-
         if (!in_array(Auth::user()->role, $roles)) {
             abort(403, 'Unauthorized');
         }
+
         return $next($request);
     }
 }

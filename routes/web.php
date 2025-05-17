@@ -21,14 +21,19 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 // Add these routes with the existing ones
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('admin', AdminController::class);
+    Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
+});
+
+
+Route::middleware(['auth', 'role:ins,ni',])->group(function () {
     //testing 
     // Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
     // Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
     // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
 
     Route::resource('staff', StaffController::class);
-    Route::resource('admin', AdminController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
