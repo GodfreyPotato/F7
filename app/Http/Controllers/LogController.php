@@ -72,6 +72,7 @@ class LogController extends Controller
         $log = new Log;
         $log->user_id = Auth::id();
         $log->log_date = now();
+        $log->status = "present";
         $log->am_in = now();
         $log->save();
         return redirect()->route('staff.index');
@@ -108,6 +109,7 @@ class LogController extends Controller
         //if absent morning
         $log = new Log;
         $log->undertime += 4 * 60;
+        $log->status = "present";
         $log->log_date = now();
         $log->user_id = Auth::id();
         $log->pm_in = now();

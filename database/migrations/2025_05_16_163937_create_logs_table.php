@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('am_out')->nullable();
             $table->timestamp('pm_in')->nullable();
             $table->timestamp('pm_out')->nullable();
+            $table->enum('status', ['present', 'absent'])->default('absent');
             $table->integer('undertime')->default(0);
             $table->timestamps();
         });

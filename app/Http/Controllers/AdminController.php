@@ -73,6 +73,15 @@ class AdminController extends Controller
         foreach ($users as $user) {
             $userLog = Log::where('log_date', today())
                 ->where('user_id', $user->id)->first();
+
+            if ($userLog) {
+                if ($userLog->am_in == null && $userLog->am_out == null) {
+                }
+            } else {
+                $log = new Log;
+                $log->user_id = $user->id;
+                $log->log_date = today();
+            }
         }
     }
 }
