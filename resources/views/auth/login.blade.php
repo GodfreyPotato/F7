@@ -20,7 +20,7 @@
                 
 
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger mt-3">
                         <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -33,22 +33,16 @@
                     @csrf
 
                     <div class="mb-3">
-                        @error('email')
-                            <span>{{$message}}</span>
-                        @enderror
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="email" name="email" class="form-control" id="email" value="{{ old('email') }}" required style="height: 3vw; width: 25vw;">
+                        <input type="email" name="email" class="form-control" id="email" value="{{ old('email') }}" required style="height: 3vw; width: 30vw;">
                     </div>
 
                     <div class="mb-3">
-                        @error('password')
-                            <span>{{$message}}</span>
-                        @enderror
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" required style="height: 3vw; width: 25vw;">
+                        <input type="password" name="password" class="form-control" id="password" required style="height: 3vw; width: 30vw;">
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100" style="height: 3vw; width: 25vw;">Login</button>
+                    <button type="submit" class="btn btn-primary w-100" style="height: 3vw; width: 30vw;">Login</button>
                 </form>
                 <div class="mt-3 d-flex justify-content-end"><a href="{{route('password.request')}}">Forgot Password?</a> </div>
                 <div class="mt-5 d-flex justify-content-center align-items-center">Doesn't have an account? <a href="{{route('registration.index')}}">Sign Up</a> </div>
