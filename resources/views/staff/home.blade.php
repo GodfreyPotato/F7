@@ -44,16 +44,19 @@
                             <span class="fw-semibold"> {{now()->hour < 12 ? "Morning" : "Afternoon" }}</span></span>
                     </div>
                     <div class="d-flex justify-content-between mt-2">
-                        @if (now()->hour == 3 && now()->minute == 40)
 
+                        {{-- AM time in --}}
+                        @if (now()->hour > 17)
+                            <span>AM</span>
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
                                     <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
-                                        {{$log == null ? "--:--" : Carbon\Carbon::parse($log->am_in)->format('g:i A')}} </span>
+                                        {{$log == null || $log->am_in == null ? "--:--" : Carbon\Carbon::parse($log->am_in)->format('g:i A')}}
+                                    </span>
 
-                                    @if ($log == null)
+                                    @if ($log == null || $log->am_in == null)
                                         <form action="{{route('timeInAm')}}" method="post">
                                             @csrf
                                             <button class="btn"
@@ -74,10 +77,10 @@
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
                                     <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time Out</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
-                                        {{$log->am_out == null ? "--:--" : Carbon\Carbon::parse($log->am_out)->format('g:i A')}}
+                                        {{ $log == null || $log->am_out == null ? "--:--" : Carbon\Carbon::parse($log->am_out)->format('g:i A')}}
                                     </span>
 
-                                    @if ($log->am_out == null)
+                                    @if ($log == null || $log->am_out == null)
                                         <form action="{{route('timeOutAm')}}" method="post">
                                             @csrf
                                             <button class="btn"
@@ -88,20 +91,25 @@
                                     @else
                                         <span class=" fw-bold"
                                             style="background-color:#BCBCBC; color:white;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Timed
-                                            Out</span>
+                                            Out
+                                        </span>
                                     @endif
 
                                 </div>
                             </div>
                         @else
+
+                            <span>PM</span>
+                            {{-- PM time in --}}
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
                                     <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
-                                        {{$log == null ? "--:--" : Carbon\Carbon::parse($log->pm_in)->format('g:i A')}} </span>
+                                        {{$log == null || $log->pm_in == null ? "--:--" : Carbon\Carbon::parse($log->pm_in)->format('g:i A')}}
+                                    </span>
 
-                                    @if ($log->pm_in == null)
+                                    @if ($log == null || $log->pm_in == null)
                                         <form action="{{route('timeInPm')}}" method="post">
                                             @csrf
                                             <button class="btn"
@@ -122,10 +130,10 @@
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
                                     <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time Out</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
-                                        {{$log->pm_out == null ? "--:--" : Carbon\Carbon::parse($log->pm_out)->format('g:i A')}}
+                                        {{$log == null || $log->pm_out == null ? "--:--" : Carbon\Carbon::parse($log->pm_out)->format('g:i A')}}
                                     </span>
 
-                                    @if ($log->pm_out == null)
+                                    @if ($log == null || $log->pm_out == null)
                                         <form action="{{route('timeOutPm')}}" method="post">
                                             @csrf
                                             <button class="btn"
@@ -136,7 +144,7 @@
                                     @else
                                         <span class=" fw-bold"
                                             style="background-color:#BCBCBC; color:white;  width: 136px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">Timed
-                                            Out</span>
+                                            Out </span>
                                     @endif
 
                                 </div>

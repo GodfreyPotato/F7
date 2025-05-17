@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -62,5 +64,15 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function computeAllUndertime()
+    {
+        $users = User::where('role', '!=', 'admin')->get();
+
+        foreach ($users as $user) {
+            $userLog = Log::where('log_date', today())
+                ->where('user_id', $user->id)->first();
+        }
     }
 }
