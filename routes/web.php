@@ -16,6 +16,8 @@ Route::get('/', function () {
 
 
 
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+
 // Add these routes with the existing ones
 
 
