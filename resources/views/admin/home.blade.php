@@ -30,7 +30,7 @@
 
             <div class="row" style="margin-top: 87px;">
                 <div class="col-6 col-md-3 mb-4">
-                    <a href="" class="text-decoration-none">
+                    <a href="{{route('staffListing')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
                             <div class="card-body">

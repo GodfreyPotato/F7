@@ -35,14 +35,58 @@
                     <tbody style="font-size: 16px;">
                         @foreach ($users as $user)
                         <tr>
-                            <td>
+                            <td>{{ Str::ucfirst($user->lastname) }},
                                 {{ Str::ucfirst($user->firstname) }}
                                 {{Str::ucfirst($user->middlename[0])}}.
-                                {{ Str::ucfirst($user->lastname) }}
+                                
                             </td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->department }}</td>
-                            <td>{{ $user->role }}</td>
+                            <td>{{ $user->email }}</td> 
+                            @php
+                            $code = $user->department;
+                            switch ($code) {
+                                case 'BSIT':
+                                    $dept = 'BS Information Technology';
+                                    break;
+                                case 'BSMATH':
+                                    $dept = 'BS Mathematics';
+                                    break;
+                                case 'BSCE':
+                                    $dept = 'BS Civil Engineering';
+                                    break;
+                                case 'BSED':
+                                    $dept = 'BS Education';
+                                    break;
+                                case 'BSCoE':
+                                    $dept = 'BS Computer Engineering';
+                                    break;
+                                case 'BSME':
+                                    $dept = 'BS Mechanical Engineering';
+                                    break;
+                                case 'BSE':
+                                    $dept = 'BS Education';
+                                    break;
+                                case 'BSA':
+                                    $dept = 'BS Architecture';
+                                    break;
+                                case 'BSECE':
+                                    $dept = 'BS Early Childhood Education';
+                                    break;
+                                case 'ABEL':
+                                    $dept = 'AB English Language';
+                                    break;
+                                case 'NI':
+                                    $dept = 'Non Instructional';
+                                    break;
+                                case 'BSEE':
+                                    $dept = 'BS Electrical Engineering';
+                                    break;
+                                default:
+                                    $dept = 'Unknown Course Code';
+                                    break;
+                                }
+                            @endphp
+                            <td>{{ $dept }}</td>
+                            <td>{{ $user->role=="ins" ? "Instructional" : "Non Instructional" }}</td>
                             <td class="d-flex justify-content-center">
                                 <a href="#" class="me-3"><img src="{{ asset('images/edit.png') }}" alt="View Schedule"></a>
                                 <a href="#"><img src="{{ asset('images/trash.png') }}" alt="Approve"></a>
