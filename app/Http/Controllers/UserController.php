@@ -13,7 +13,12 @@ class UserController extends Controller
 {
     //guys dito po ilalagay ung mga function na Login, Logout, Register, forgot password
 
-    
+    public function index(){
+        $users = User::where('role', '!=', 'admin')
+        ->orderBy('lastname')
+        ->get();
+        return view('admin.staffListing', compact('users'));
+    }
 
 
     public function login(Request $request)

@@ -71,7 +71,9 @@ class LetterController extends Controller
     public function show(Letter $letter)
     {
         //
-
+        $letter = Letter::join('users', 'users.id', 'letters.user_id')
+            ->select('*', 'letters.updated_at as date', 'letters.id as id')
+            ->first();
         return view('admin.reviewRequest', compact('letter'));
     }
 

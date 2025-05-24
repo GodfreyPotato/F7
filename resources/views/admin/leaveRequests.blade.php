@@ -41,22 +41,7 @@
                         </a>
                     </div>
                 @endforeach
-                {{-- sample 2 --}}
-                {{-- <div class="p-4 d-flex justify-content-between align-items-center mt-4"
-                    style="box-shadow: 0px 0px 4.2px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-
-                    <div class="d-flex flex-column">
-                        <p class="fw-bold mb-0" style="font-size: 18px;">Godfrey Javier</p>
-                        <p class="fw-semibold mb-0" style="font-size: 16px; color: #7B7878;">
-                            May 24, 2025
-                            <span class="ms-2" style="font-size: 16px; color: #7B7878;">11:35 PM</span>
-                        </p>
-                    </div>
-                    <a href="#" class="btn d-flex justify-content-center align-items-center"
-                        style="background-color: #1D4ED8; color: white; width: 10vw;">
-                        Review
-                    </a>
-                </div> --}}
+                
             </div>
         </div>
     </div>
