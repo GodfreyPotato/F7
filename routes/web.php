@@ -26,6 +26,8 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('admin', AdminController::class);
     Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
+
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 
@@ -37,7 +39,6 @@ Route::middleware(['auth', 'role:ins,ni',])->group(function () {
 
     Route::resource('staff', StaffController::class);
     Route::resource('leave', LeaveController::class);
-    Route::resource('admin', AdminController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -51,7 +52,7 @@ Route::middleware(['auth', 'role:ins,ni',])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
 
-    Route::resource('leave', LetterController::class)->only(['index','store']);
+    Route::resource('leave', LetterController::class)->only(['index', 'store']);
 });
 
 
