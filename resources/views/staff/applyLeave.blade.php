@@ -32,7 +32,8 @@
                 <div class="p-4"
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <span style="font-size: 20px;" class="fw-bold">Apply Leave Request</span>
-                    <form action="{{route('leave.store')}}" method="POST" enctype="multipart/form-data" class="mt-4">
+                    <form action="{{route('letter
+                    .store')}}" method="POST" enctype="multipart/form-data" class="mt-4">
                         @csrf
 
                         {{-- Cause of Absence --}}
