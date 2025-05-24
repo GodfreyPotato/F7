@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 
-    <div class="container" style="margin-top: 5vw;">
+    <div class="container mt-4">
         <div class="d-flex">
             <!-- profile card -->
             <div class="p-4 me-4"
@@ -32,43 +32,69 @@
                 <div class="p-4"
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <span style="font-size: 20px;" class="fw-bold">Apply Leave Request</span>
-                        <form action="" method="POST" enctype="multipart/form-data" class="mt-4">
-                            @csrf
+                    <form action="{{route('leave.store')}}" method="POST" enctype="multipart/form-data" class="mt-4">
+                        @csrf
 
-                            {{-- Cause of Absence --}}
-                            <div class="mb-3">
-                                <label for="cause" class="form-label">Cause of Absence</label>
-                                <input type="text" class="form-control" id="cause" name="cause" placeholder="">
-                            </div>
+                        {{-- Cause of Absence --}}
+                        <div class="mb-3">
+                            @error('cause')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <label for="cause" class="form-label">Cause of Absence</label>
+                            <input type="text" class="form-control" id="cause" name="cause" placeholder="">
+                        </div>
 
-                            {{-- Date Range and CS Form --}}
-                            <div class="row mb-3">
-                                {{-- Date Range --}}
-                                <div class="col-md-6">
-                                    <label for="date_range" class="form-label">Date Range</label>
-                                    <input type="date" class="form-control" id="date_range" name="date_range">
+                        {{-- Date Range and CS Form --}}
+                        <div class="row mb-3">
+                            {{-- Date Range --}}
+                            <div class="col-md-6">
+                                @error('date_start')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                                <label for="date_range" class="form-label">Date Range</label>
+                                <div class="d-flex justify-content-between">
+                                    <input type="date" class="form-control" id="date_start" min="{{date('Y-m-d')}}"
+                                        name="start_date" style="width:48%;">
+                                    <h4> - </h4>
+                                    <input type="date" class="form-control" id="date_end" name="end_date"
+                                        style="width:48%;">
                                 </div>
-
-                                {{-- CS Form --}}
-                                <div class="col-md-6">
-                                    <label for="cs_form" class="form-label">CS Form</label>
-                                    <input type="file" class="form-control" id="cs_form" name="cs_form">
-                                </div>
                             </div>
 
-                            {{-- Save and Cance Buttons --}}
-                            <div class="d-flex justify-content-end">
-                                <a href="" class="btn btn-outline-primary me-2"
-                                    style="width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">Cancel</a>
-                                <button type="submit" class="btn text-white"
-                                    style="background-color: #1D4ED8; width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">
-                                    Save
-                                </button>
+                            {{-- CS Form --}}
+                            <div class="col-md-6">
+                                @error('file_path')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                                <label for="cs_form" class="form-label">CS Form</label>
+                                <input type="file" class="form-control" id="cs_form" name="file_path">
                             </div>
-                        </form>
-                                        
+                        </div>
+
+                        {{-- Save and Cance Buttons --}}
+                        <div class="d-flex justify-content-end">
+                            <a href="" class="btn btn-outline-primary me-2"
+                                style="width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">Cancel</a>
+                            <button type="submit" class="btn text-white"
+                                style="background-color: #1D4ED8; width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
-    </div
+    </div>
+
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $("#date_start").on("change", function () {
+                $('#date_end').attr('min', $(this).val());
+                $("#date_end").val($(this).val());
+            });
+        });
+    </script>
+@endpush

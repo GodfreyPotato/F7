@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LetterController extends Controller
 {
@@ -30,6 +32,33 @@ class LetterController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'cause' => 'required|string',
+            'file_path' => 'file|mimes:jpeg,png,jpg,pdf,doc,docx'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $letter = new Letter;
+        $letter->user_id = Auth::id();
+        $letter->start_date = $request->start_date;
+        $letter->end_date = $request->end_date;
+        $letter->cause = $request->cause;
+
+        if ($request->hasFile('file_path')) {
+            $file = $request->file('file_path');
+            $filepath = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('form6'), $filepath);
+            $letter->file_path = $filepath;
+        }
+
+        $letter->save();
+
+        return redirect()->route('staff.index');
     }
 
     /**

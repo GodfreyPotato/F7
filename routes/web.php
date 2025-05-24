@@ -5,11 +5,8 @@ use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
-<<<<<<< HEAD
 use App\Http\Controllers\LeaveController;
-=======
 use App\Http\Controllers\LetterController;
->>>>>>> 731a1f825e8dfe4791398bc94663bb342228ffcb
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
@@ -39,11 +36,8 @@ Route::middleware(['auth', 'role:ins,ni',])->group(function () {
     // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
 
     Route::resource('staff', StaffController::class);
-<<<<<<< HEAD
     Route::resource('leave', LeaveController::class);
     Route::resource('admin', AdminController::class);
-=======
->>>>>>> 731a1f825e8dfe4791398bc94663bb342228ffcb
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -57,7 +51,7 @@ Route::middleware(['auth', 'role:ins,ni',])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
 
-    Route::resource('leave', LetterController::class)->only(['index']);
+    Route::resource('leave', LetterController::class)->only(['index','store']);
 });
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Leave;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LeaveController extends Controller
 {
@@ -13,7 +14,7 @@ class LeaveController extends Controller
     public function index()
     {
         //
-        return view('staff.applyLeave');
+
     }
 
     /**
@@ -30,6 +31,8 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         //
+  
+
     }
 
     /**

@@ -47,7 +47,7 @@
 
                         {{-- AM time in --}}
                         @if (now()->hour > 17)
-                            <span>AM</span>
+
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
@@ -99,7 +99,7 @@
                             </div>
                         @else
 
-                            <span>PM</span>
+
                             {{-- PM time in --}}
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
@@ -165,28 +165,45 @@
                         </a>
                     </div>
                     <div class="d-flex flex-column gap-3 mt-3">
-                        <div class="p-3"
-                            style="width: 100%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-                            <div style="display: flex; align-items: center;">
-                                <!-- Vertical line -->
-                                <div
-                                    style="width: 5px; height: 40px; background-color: #00764C; margin-right: 10px; border-radius: 2px;">
+
+                        @foreach ($letters as $letter)
+                            <div class="p-3"
+                                style="width: 100%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center;">
+                                    <!-- Vertical line -->
+                                    <div
+                                        style="width: 5px; height: 40px;  {{$letter->letter_status == "pending" ? "background-color: #EAB308;" : ($letter->letter_status == "rejected" ? "background-color:  red;" : "background-color:  #0F7552;") }} margin-right: 10px; border-radius: 2px;">
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: bold;">{{$letter->cause}}</div>
+                                        @php
+
+                                            $start = Carbon\Carbon::parse($letter->start_date);
+                                            $end = Carbon\Carbon::parse($letter->end_date);
+                                        @endphp
+
+                                        <div style="font-size: 14px; color: #666;">
+                                            @if ($start->equalTo($end))
+                                                {{ $start->format('F j, Y') }}
+                                            @elseif ($start->month === $end->month && $start->year === $end->year)
+                                                {{ $start->format('F j') }}–{{ $end->format('j, Y') }}
+                                            @else
+                                                {{ $start->format('F j') }} – {{ $end->format('F j, Y') }}
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div style="font-weight: bold;">Sick Leave</div>
-                                    <div style="font-size: 14px; color: #666;">April 10-12, 2025</div>
-                                </div>
+
+                                <!-- status badge -->
+                                <span class="badge d-flex justify-content-center align-items-center fw-bold"
+                                    style="  {{$letter->letter_status == "pending" ? "background-color: #FFF6D9; color: #EAB308;" : ($letter->letter_status == "rejected" ? "background-color: red; color: red;" : "background-color: #D1FADF; color: #0F7552;") }} font-size: 14px; padding: 6px 12px; border-radius: 5px;">
+                                    <img src="{{$letter->letter_status == "pending" ? asset('images/clock2.png') : ($letter->letter_status == "rejected" ? asset('images/x.png') : asset('images/check.png')) }}"
+                                        style="width: 20px; height: 20px;">
+                                    {{Str::ucfirst($letter->letter_status)}}
+                                </span>
                             </div>
-
-                            <!-- status badge -->
-                            <span class="badge d-flex justify-content-center align-items-center fw-bold"
-                                style="background-color: #D1FADF; color: #0F7552; font-size: 14px; padding: 6px 12px; border-radius: 5px;">
-                                <img src="{{ asset('images/check.png') }}" style="width: 20px; height: 20px;">
-                                Approved
-                            </span>
-                        </div>
-
-                        <div class="p-3"
+                        @endforeach
+                        {{-- <div class="p-3"
                             style="width: 100%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
                             <div style="display: flex; align-items: center;">
                                 <!-- Vertical line -->
@@ -206,7 +223,7 @@
                                     style="width: 20px; height: 20px; margin-right: 10px">
                                 Pending
                             </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
