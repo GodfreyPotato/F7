@@ -21,7 +21,7 @@
                     <a href="" class="btn d-flex justify-content-center" style="background-color: #1D4ED8; color: white;">
                         <img src="{{ asset('images/edit-contained.png') }}"
                             style="width: 23px; height: 23px; margin-right: 8px;">
-                        Edit Profile
+                        Edit Profile {{Auth::user()->role}}
                     </a>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <div class="d-flex justify-content-between">
                         <span style="font-size: 20px;" class="fw-bold">Recent Leave Requests</span>
-                        <a href="{{ route('leave.index') }}" class="btn d-flex justify-content-center"
+                        <a href="{{route('leave.index')}}" class="btn d-flex justify-content-center"
                             style="background-color: #1D4ED8; color: white;">
                             <img src="{{ asset('images/plus.png') }}" style="width: 23px; height: 23px; margin-right: 8px;">
                             Apply Leave
