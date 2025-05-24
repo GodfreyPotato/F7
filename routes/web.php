@@ -5,6 +5,7 @@ use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
@@ -46,6 +47,8 @@ Route::middleware(['auth', 'role:ins,ni',])->group(function () {
     // Attendance routes
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
+
+    Route::resource('leave', LetterController::class)->only(['index']);
 });
 
 
