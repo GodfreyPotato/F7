@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Leave;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +15,7 @@ class LeaveController extends Controller
     public function index()
     {
         //
-
+       
     }
 
     /**
@@ -23,6 +24,8 @@ class LeaveController extends Controller
     public function create()
     {
         //
+         $leaves = Letter::all();
+        return view('admin.leaveRequests', compact('leaves'));
     }
 
     /**
@@ -41,6 +44,7 @@ class LeaveController extends Controller
     public function show(Leave $leave)
     {
         //
+        return view('admin.reviewRequest',compact('leave'));
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-    <div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 90vh; margin-top: 5vw; margin-bottom: 5vw;">
         <div class="container">
 
             <div class="card mb-4"
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="col-6 col-md-3 mb-4">
-                    <a href="" class="text-decoration-none">
+                    <a href="{{route('leave.create')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
                             <div class="card-body">

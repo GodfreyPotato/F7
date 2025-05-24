@@ -17,29 +17,26 @@ Route::get('/', function () {
 })->name('welcome');
 
 
-
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-
-// Add these routes with the existing ones
-
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware('auth')->group(function(){
+    
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::middleware('role:admin')->group(function () {
     Route::resource('admin', AdminController::class);
     Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
+    Route::resource('leave', LeaveController::class);
+    
 
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 
-Route::middleware(['auth', 'role:ins,ni',])->group(function () {
+Route::middleware( 'role:ins,ni')->group(function () {
     //testing 
     // Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
     // Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
     // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
 
+    // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource('staff', StaffController::class);
-    Route::resource('leave', LeaveController::class);
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
     //time in / out
@@ -52,8 +49,12 @@ Route::middleware(['auth', 'role:ins,ni',])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
 
-    Route::resource('leave', LetterController::class)->only(['index', 'store']);
+    Route::resource('letter', LetterController::class)->only(['store','index']);
 });
+});
+// Add these routes with the existing ones
+
+
 
 
 Route::middleware('guest')->group(function () {
