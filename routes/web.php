@@ -20,12 +20,14 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
     Route::middleware('role:admin')->group(function () {
         Route::resource('admin', AdminController::class);
         Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
         Route::resource('leave', LeaveController::class);
 
-        Route::resource('letter', LetterController::class)->only(['show']);
+        Route::resource('letter', LetterController::class)->only(['show', 'create']);
     });
 
 

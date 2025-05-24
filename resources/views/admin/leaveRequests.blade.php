@@ -17,23 +17,24 @@
                 <span style="font-size: 24px;" class="fw-bold">Leave Requests</span>
                 <hr>
                 {{-- sample 1 --}}
-                @foreach ($leaves as $leave)
+                @foreach ($letters as $letter)
+
                     <div class="p-4 d-flex justify-content-between align-items-center mt-3"
                         style="box-shadow: 0px 0px 4.2px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
 
                         <div class="d-flex flex-column">
-                            <p class="fw-bold mb-0" style="font-size: 18px;">{{Str::ucfirst($leave->firstname)}}
-                                {{Str::ucfirst($leave->middlename[0])}}.
-                                {{Str::ucfirst($leave->lastname)}}
+                            <p class="fw-bold mb-0" style="font-size: 18px;">{{Str::ucfirst($letter->firstname)}}
+                                {{Str::ucfirst($letter->middlename[0])}}.
+                                {{Str::ucfirst($letter->lastname)}}
                             </p>
                             <p class="fw-semibold mb-0" style="font-size: 16px; color: #7B7878;">
-                                {{{Carbon\Carbon::parse($leave->date)->format('M d, Y')}}}
+                                {{{Carbon\Carbon::parse($letter->date)->format('M d, Y')}}}
                                 <span class="ms-2"
-                                    style="font-size: 16px; color: #7B7878;">{{{Carbon\Carbon::parse($leave->date)->format('g:i A')}}}</span>
+                                    style="font-size: 16px; color: #7B7878;">{{{Carbon\Carbon::parse($letter->date)->format('g:i A')}}}</span>
                             </p>
                         </div>
 
-                        <a href="{{route('letter.show', ['letter' => $leave])}}"
+                        <a href="{{route('letter.show', ['letter' => $letter])}}"
                             class="btn d-flex justify-content-center align-items-center"
                             style="background-color: #1D4ED8; color: white; width: 10vw;">
                             Review

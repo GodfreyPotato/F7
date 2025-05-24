@@ -24,10 +24,7 @@ class LeaveController extends Controller
     public function create()
     {
         //
-        $leaves = Letter::join('users', 'users.id', 'letters.user_id')
-            ->select('*', 'letters.updated_at as date')
-            ->get();
-        return view('admin.leaveRequests', compact('leaves'));
+
     }
 
     /**
