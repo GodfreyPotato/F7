@@ -5,6 +5,7 @@ use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
 
     Route::resource('staff', StaffController::class);
+    Route::resource('leave', LeaveController::class);
     Route::resource('admin', AdminController::class);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
