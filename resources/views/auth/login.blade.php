@@ -45,7 +45,7 @@
                     <button type="submit" class="btn btn-primary w-100" style="height: 3vw; width: 30vw;">Login</button>
                 </form>
                 <div class="mt-3 d-flex justify-content-end"><a href="{{route('password.request')}}">Forgot Password?</a> </div>
-                <div class="mt-5 d-flex justify-content-center align-items-center">Doesn't have an account? <a href="{{route('registration.index')}}">Sign Up</a> </div>
+                <div class="mt-5 d-flex justify-content-center align-items-center">Don't have an account? <a href="{{route('registration.index')}}">Sign Up</a> </div>
                 
             </div>
         </div>
