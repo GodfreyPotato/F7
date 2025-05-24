@@ -15,7 +15,7 @@ class LeaveController extends Controller
     public function index()
     {
         //
-       
+
     }
 
     /**
@@ -24,7 +24,9 @@ class LeaveController extends Controller
     public function create()
     {
         //
-         $leaves = Letter::all();
+        $leaves = Letter::join('users', 'users.id', 'letters.user_id')
+            ->select('*', 'letters.updated_at as date')
+            ->get();
         return view('admin.leaveRequests', compact('leaves'));
     }
 
@@ -34,7 +36,7 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         //
-  
+
 
     }
 
@@ -44,7 +46,7 @@ class LeaveController extends Controller
     public function show(Leave $leave)
     {
         //
-        return view('admin.reviewRequest',compact('leave'));
+       
     }
 
     /**

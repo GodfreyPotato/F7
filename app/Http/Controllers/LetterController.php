@@ -67,6 +67,7 @@ class LetterController extends Controller
     public function show(Letter $letter)
     {
         //
+        return view('admin.reviewRequest', compact('letter'));
     }
 
     /**

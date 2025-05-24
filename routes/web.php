@@ -17,40 +17,40 @@ Route::get('/', function () {
 })->name('welcome');
 
 
-Route::middleware('auth')->group(function(){
-    
+Route::middleware('auth')->group(function () {
+
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::middleware('role:admin')->group(function () {
-    Route::resource('admin', AdminController::class);
-    Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
-    Route::resource('leave', LeaveController::class);
-    
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('admin', AdminController::class);
+        Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
+        Route::resource('leave', LeaveController::class);
 
-});
-
-
-Route::middleware( 'role:ins,ni')->group(function () {
-    //testing 
-    // Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
-    // Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
-    // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
-
-    // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::resource('staff', StaffController::class);
+        Route::resource('letter', LetterController::class)->only(['show']);
+    });
 
 
-    //time in / out
-    Route::post('/timeInAm', [LogController::class, 'timeInAm'])->name('timeInAm');
-    Route::post('/timeOutAm', [LogController::class, 'timeOutAm'])->name('timeOutAm');
-    Route::post('/timeInPm', [LogController::class, 'timeInPm'])->name('timeInPm');
-    Route::post('/timeOutPm', [LogController::class, 'timeOutPm'])->name('timeOutPm');
+    Route::middleware('role:ins,ni')->group(function () {
+        //testing 
+        // Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
+        // Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
+        // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
 
-    // Attendance routes
-    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
-    Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
+        // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+        Route::resource('staff', StaffController::class);
 
-    Route::resource('letter', LetterController::class)->only(['store','index']);
-});
+
+        //time in / out
+        Route::post('/timeInAm', [LogController::class, 'timeInAm'])->name('timeInAm');
+        Route::post('/timeOutAm', [LogController::class, 'timeOutAm'])->name('timeOutAm');
+        Route::post('/timeInPm', [LogController::class, 'timeInPm'])->name('timeInPm');
+        Route::post('/timeOutPm', [LogController::class, 'timeOutPm'])->name('timeOutPm');
+
+        // Attendance routes
+        Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+        Route::get('/attendance/{user}', [AttendanceController::class, 'show'])->name('attendance.show');
+
+        Route::resource('letter', LetterController::class)->only(['store', 'index']);
+    });
 });
 // Add these routes with the existing ones
 
