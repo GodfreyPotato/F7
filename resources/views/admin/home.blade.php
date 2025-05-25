@@ -28,8 +28,8 @@
             </div>
 
 
-            <div class="row" style="margin-top: 87px;">
-                <div class="col-6 col-md-3 mb-4">
+            <div class="d-flex justify-content-between" style="margin-top: 87px;">
+                <div class="mb-4" style="width: 30%">
                     <a href="{{route('staffListing')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
@@ -46,7 +46,7 @@
                     </a>
                 </div>
 
-                <div class="col-6 col-md-3 mb-4">
+                <div class="mb-4" style="width: 30%">
                     <a href="{{route('letter.create')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
@@ -62,24 +62,8 @@
                     </a>
                 </div>
 
-                <div class="col-6 col-md-3 mb-4">
-                    <a href="" class="text-decoration-none">
-                        <div class="card h-100 text-center"
-                            style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
-                            <div class="card-body">
-                                <div
-                                    style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;">
-                                    <img src="{{ asset('images/user-profile-add.png') }}"
-                                        style="height: 40px; width: 40px;">
-                                </div>
-                                <h5 class="card-title" style="color: white;">Add Employee</h5>
-                                <p class="card-text" style="color: white; font-size: 14px;">Create new record</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
 
-                <div class="col-6 col-md-3 mb-4">
+                <div class="mb-4" style="width: 30%">
                     <a href="" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">

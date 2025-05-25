@@ -21,7 +21,7 @@
                     <a href="" class="btn d-flex justify-content-center" style="background-color: #1D4ED8; color: white;">
                         <img src="{{ asset('images/edit-contained.png') }}"
                             style="width: 23px; height: 23px; margin-right: 8px;">
-                        Edit Profile {{Auth::user()->role}}
+                        Edit Profile
                     </a>
                 </div>
             </div>

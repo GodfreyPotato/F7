@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::resource('staff', StaffController::class);
-
+        Route::get('/users', [StaffController::class, 'logs'])->name('showLogs');
 
         //time in / out
         Route::post('/timeInAm', [LogController::class, 'timeInAm'])->name('timeInAm');

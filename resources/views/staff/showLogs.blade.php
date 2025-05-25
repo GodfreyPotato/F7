@@ -1,5 +1,8 @@
 @extends('master')
 @section('content')
+@php
+$user = Auth::user();
+@endphp
 <style>
         .sidebar {
             height: 100vh;
@@ -56,25 +59,8 @@
             font-weight: bold;
         }
     </style>
- <div class="container-fluid">
-        <div class="row">
-
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar p-4">
-                <h4 class="mb-4">Employees</h4>
-                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search...">
-                <ul class="list-unstyled" id="employeeList">
-                    @foreach($users as $user)
-                        <li class="mb-2">
-                            <a href="{{ route('attendance.show', $user->id) }}">
-                                {{ $user->firstname }} {{ $user->lastname }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            <!-- Calendar -->
+        <!-- Calendar -->
+        <div class="d-flex justify-content-center align-items-center">
             <div class="col-md-9 col-lg-10 p-4">
                 @if(isset($user))
                     <h2 class="mb-4">{{ $user->firstname }} {{ $user->lastname }} - {{ now()->format('F Y') }}</h2>
@@ -138,7 +124,6 @@
                 @endif
             </div>
         </div>
-    </div>
 
 @endsection
 
