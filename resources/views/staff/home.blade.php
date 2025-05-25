@@ -46,12 +46,11 @@
                     <div class="d-flex justify-content-between mt-2">
 
                         {{-- AM time in --}}
-                        @if (now()->hour > 17)
-
+                        @if (now()->format('H:i') < '12:30')
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">AM Time In</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
                                         {{$log == null || $log->am_in == null ? "--:--" : Carbon\Carbon::parse($log->am_in)->format('g:i A')}}
                                     </span>
@@ -75,7 +74,7 @@
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time Out</p>
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">AM Time Out</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
                                         {{ $log == null || $log->am_out == null ? "--:--" : Carbon\Carbon::parse($log->am_out)->format('g:i A')}}
                                     </span>
@@ -98,13 +97,11 @@
                                 </div>
                             </div>
                         @else
-
-
                             {{-- PM time in --}}
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time In</p>
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">PM Time In</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
                                         {{$log == null || $log->pm_in == null ? "--:--" : Carbon\Carbon::parse($log->pm_in)->format('g:i A')}}
                                     </span>
@@ -128,7 +125,7 @@
                             <div class="p-2 me-2 "
                                 style="width: 50%; height: 40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">Time Out</p>
+                                    <p style="font-size: 16px; color: #878585; margin: 0;" class="fw-semibold">PM Time Out</p>
                                     <span class="fw-bold" style="font-size: 24px; margin: 0;">
                                         {{$log == null || $log->pm_out == null ? "--:--" : Carbon\Carbon::parse($log->pm_out)->format('g:i A')}}
                                     </span>
@@ -196,7 +193,7 @@
 
                                 <!-- status badge -->
                                 <span class="badge d-flex justify-content-center align-items-center fw-bold"
-                                    style="  {{$letter->letter_status == "pending" ? "background-color: #FFF6D9; color: #EAB308;" : ($letter->letter_status == "rejected" ? "background-color: red; color: red;" : "background-color: #D1FADF; color: #0F7552;") }} font-size: 14px; padding: 6px 12px; border-radius: 5px;">
+                                    style="  {{$letter->letter_status == "pending" ? "background-color: #FFF6D9; color: #EAB308;" : ($letter->letter_status == "rejected" ? "background-color: red; color: white;" : "background-color: #D1FADF; color: #0F7552;") }} font-size: 14px; padding: 6px 12px; border-radius: 5px;">
                                     <img src="{{$letter->letter_status == "pending" ? asset('images/clock2.png') : ($letter->letter_status == "rejected" ? asset('images/x.png') : asset('images/check.png')) }}"
                                         style="width: 20px; height: 20px;">
                                     {{Str::ucfirst($letter->letter_status)}}

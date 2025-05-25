@@ -27,6 +27,7 @@
                                 {{Str::ucfirst($letter->middlename[0])}}.
                                 {{Str::ucfirst($letter->lastname)}}
                             </p>
+                   
                             <p class="fw-semibold mb-0" style="font-size: 16px; color: #7B7878;">
                                 {{{Carbon\Carbon::parse($letter->date)->format('M d, Y')}}}
                                 <span class="ms-2"
@@ -41,7 +42,7 @@
                         </a>
                     </div>
                 @endforeach
-                
+
             </div>
         </div>
     </div>

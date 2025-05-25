@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('letter', LetterController::class)->only(['show', 'create']);
         Route::get('/userListing', [UserController::class, 'index'])->name('staffListing');
+        Route::post('/approveLetter/{letter}', [LetterController::class, 'approve'])->name('approveLetter');
+        Route::post('/reject/{letter}', [LetterController::class, 'reject'])->name('rejectLetter');
     });
 
 
@@ -79,5 +81,3 @@ Route::middleware('guest')->group(function () {
     Route::resource('/login', LoginController::class);
     Route::resource('/registration', RegistrationController::class);
 });
-
-?>

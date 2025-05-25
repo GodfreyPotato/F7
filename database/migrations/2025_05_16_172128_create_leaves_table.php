@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('letter_id')->constrained('letters')->onDelete('cascade');
             $table->enum('action_taken', ['SP', 'VP', 'SO', 'PD', 'OP', 'FL', 'SPL']);
             $table->string('cause_by_admin');
-            $table->string('with_f6');
+            $table->string('with_f6')->nullable();
             $table->timestamps();
         });
     }
