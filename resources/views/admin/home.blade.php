@@ -16,7 +16,7 @@
                                     Undertime Today</span></a>
                         @else
                             <span class="rounded p-2 mt-3 text-white"
-                                style="text-align: center; background-color: #0d6efd;">Work Today is
+                                style="text-align: center; background-color: #0d6efd; ">Work Today is
                                 Done!
                                 #Winning!</span>
                         @endif
@@ -64,7 +64,7 @@
 
 
                 <div class="mb-4" style="width: 30%">
-                    <a href="" class="text-decoration-none">
+                    <a href="{{route('pdf.index')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
                             <div class="card-body">
@@ -80,7 +80,16 @@
                 </div>
             </div>
 
+            @php
+                use App\Models\Letter;
+                use App\Models\User;
 
+                $totalPending = Letter::where('letter_status', 'pending')
+                    ->count();
+
+                $totalEmployees = User::where('role', '!=', 'admin')->count();
+
+            @endphp
             <div class="row g-3 mt-3">
                 <div class="col-12 col-md-4">
                     <div class="card"
@@ -88,7 +97,7 @@
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
                                 <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Total employees</p>
-                                <h2 style="margin-bottom: 0; font-weight: 700;">54</h2>
+                                <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalEmployees}}</h2>
                             </div>
                             <div
                                 style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color: rgba(13, 110, 253, 0.1);">
@@ -105,7 +114,7 @@
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
                                 <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Requests</p>
-                                <h2 style="margin-bottom: 0; font-weight: 700;">11</h2>
+                                <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalPending}}</h2>
                             </div>
                             <div
                                 style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color: #DBEAFE;">

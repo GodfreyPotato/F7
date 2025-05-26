@@ -10,12 +10,13 @@ use App\Http\Controllers\LetterController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
-
+Route::get('/login', [LoginController::class, "index"])->name('login');
 
 Route::middleware('auth')->group(function () {
 
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/userListing', [UserController::class, 'index'])->name('staffListing');
         Route::post('/approveLetter/{letter}', [LetterController::class, 'approve'])->name('approveLetter');
         Route::post('/reject/{letter}', [LetterController::class, 'reject'])->name('rejectLetter');
+        Route::resource('pdf', PdfController::class);
+        Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
+        Route::post('/addSaturdayService', [ServiceController::class, "store"])->name('addSaturday');
     });
 
 

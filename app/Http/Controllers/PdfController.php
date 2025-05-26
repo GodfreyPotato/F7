@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 //needed for loadView
+
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,13 +16,25 @@ class PdfController extends Controller
      */
     public function index()
     {
-
-        return view('pdf.pdf');
+        $preview = 1;
+        $users = User::where('role', '!=', 'admin')
+            ->whereHas('logs', function ($query) {
+                $query->where('undertime', '>', 0);
+            })
+            ->with(['logs', 'leaves.letter', 'services'])
+            ->get();
+        return view('pdf.pdf', compact('users', 'preview'));
     }
 
+    //shows the pdf file
     public function download()
     {
-        $pdf = Pdf::loadView('pdf.pdf');
+        $preview = 0;
+        $users = User::where('role', '!=', 'admin')
+            ->with(['logs', 'leaves.letter'])
+            ->get();
+        $pdf = Pdf::loadView('pdf.pdf', compact('users', 'preview'));
+
         return $pdf->stream('document.pdf');
     }
     /**

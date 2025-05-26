@@ -4,17 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Leave extends Model
+class Service extends Model
 {
     //
-
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function letter()
-    {
-        return $this->belongsTo(Letter::class);
     }
 }

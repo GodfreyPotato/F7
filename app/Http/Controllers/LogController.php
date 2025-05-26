@@ -18,7 +18,8 @@ class LogController extends Controller
         //
     }
 
-    public function logs(){
+    public function logs()
+    {
         $users = User::where('role', '!=', 'admin')->get();
         return view('staff.showLogs', compact('users'));
     }
@@ -94,7 +95,16 @@ class LogController extends Controller
             return back();
         }
 
+
         $log->am_out = now();
+
+        $startTime = Carbon::parse($log->am_in)->hour <= 8 ? today()->setHour(8) : Carbon::parse($log->am_in);
+        $endTime = Carbon::parse($log->am_out)->hour > 12 ? today()->setHour(12) : Carbon::parse($log->am_out);
+
+        $workedMinutes = $startTime->diffInMinutes($endTime);
+
+        $log->undertime += max(0, 240 - $workedMinutes);
+
         $log->save();
         return redirect()->route('staff.index');
     }
@@ -135,12 +145,16 @@ class LogController extends Controller
 
 
         $log->pm_out = now();
+
+
+        $startTime = Carbon::parse($log->pm_in)->hour <= 13 ? today()->setHour(13) : Carbon::parse($log->pm_in);
+        $endTime = Carbon::parse($log->pm_out)->hour > 17 ? today()->setHour(17) : Carbon::parse($log->pm_out);
+
+        $workedMinutes = $startTime->diffInMinutes($endTime);
+
+        $log->undertime += max(0, 240 - $workedMinutes);
+
         $log->save();
-
-
-        //if pumasok earlier than 8 am
-        if (Carbon::parse($log->am_in)->hour < 8) {
-        }
 
         return redirect()->route('staff.index');
     }

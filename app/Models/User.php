@@ -23,8 +23,14 @@ class User extends Authenticatable
         return $this->hasMany(Log::class);
     }
 
-    public function leave()
+    public function leaves()
     {
         return $this->hasMany(Leave::class);
+    }
+
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
     }
 }

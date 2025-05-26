@@ -11,4 +11,9 @@ class Letter extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function leave()
+    {
+        return $this->hasOne(Leave::class);
+    }
 }
