@@ -25,14 +25,14 @@
                 </div>
 
                 <!-- notifications -->
-                <div class="p-4"
+                <div class="p-4 bg-danger h-100"
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <span style="font-size: 20px;"
                         class="fw-bold mb-3 mt-2">Reviewed Leave Requests</span>
                     <hr>
                     {{-- for loop --}}
                     <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="width: 22vw; height: 55%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                                style=" box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 5px;">
                         <span class="fw-bold" style="font-size: 16px">
                            name of the letter
                         </span>
@@ -42,7 +42,16 @@
                     </div>
                     <br>
                     <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="width: 22vw; height: 55%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                                style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 5px;">
+                        <span class="fw-bold" style="font-size: 16px">
+                           name of the letter
+                        </span>
+                        <span>
+                             date accepted
+                        </span>
+                    </div>
+                    <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 5px;">
                         <span class="fw-bold" style="font-size: 16px">
                            name of the letter
                         </span>
