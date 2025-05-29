@@ -45,16 +45,47 @@
         Urdaneta City Campus <br>
         <b>MONTHLY REPORT ON SERVICE OF INSTRUCTIONAL AND NON INSTRUCTIONAL PERSONNEL</b> <br>
         For {{now()->format('F Y')}}
-
     </div>
     <div style="margin-bottom:10px;"> <span style="font-size: 12px; "><b>The President</b><br> Pangasinan State
             University
             <br>Lingayen,
             Pangasinan</span></div>
     <br>
-    <span style="font-size: 12px;">SIR <br> I have the honor to submit herewith the following report on services of all
-        teaching & non teaching
-        personnel in the college to wit:</span>
+    <div class="d-flex justify-content-between">
+        <span style="font-size: 12px;">SIR <br> I have the honor to submit herewith the following report on services of all
+            teaching & non teaching
+            personnel in the college to wit:
+        </span>
+            @if ($preview==1)
+            <div class="d-flex">
+                <div class="me-2">
+                     <select class="form-select" name="month" style="height: 90%">
+                        <option disabled selected>Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div>
+                    <select class="form-select" name="year" style="height: 90%">
+                        <option disabled selected>Year</option>
+                        @for ($y = date('Y'); $y >= 1950; $y--)
+                            <option value="{{ $y }}">{{ $y }}</option>
+                        @endfor
+                    </select>
+                </div>
+            </div>
+            @endif
+    </div>
     <table border="1" style="width:100%; border-collapse: collapse; text-align: center;" @if ($preview==1)
         class ="table table-bordered"
     @endif>

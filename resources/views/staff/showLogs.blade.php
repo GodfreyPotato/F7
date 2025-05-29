@@ -64,7 +64,7 @@ $user = Auth::user();
             <div class="col-md-9 col-lg-10 p-4">
                 @if(isset($user))
                     <h2 class="mb-4">{{ $user->firstname }} {{ $user->lastname }} - {{ now()->format('F Y') }}</h2>
-
+                    
                     @php
                         $start = \Carbon\Carbon::now()->startOfMonth();
                         $end = \Carbon\Carbon::now()->endOfMonth();

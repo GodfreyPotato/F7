@@ -17,11 +17,13 @@ class StaffController extends Controller
         //
         $letters = Letter::where('user_id', Auth::id())
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(4);
         $log = Log::where('user_id', Auth::id())
             ->whereDay('log_date', today())
             ->orderBy('updated_at', 'desc')
             ->first();
+        
+        
         return view('staff.home', compact('log', 'letters'));
     }
 

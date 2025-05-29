@@ -1,6 +1,11 @@
 @extends('master')
 @section('content')
     <div class="container d-flex flex-column " style="margin-top: 5vw;">
+        <a href="{{url()->previous()}}" class="btn btn-outline-primary"
+            style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+           Back
+        </a>
+        <br>
         <div class="d-flex flex-column">
             {{-- SEARCH --}}
             <div class="p-4"

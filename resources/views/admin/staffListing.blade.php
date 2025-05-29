@@ -1,6 +1,11 @@
 @extends('master')
 @section('content')
     <div class="container" style="margin-top: 5vw;">
+        <a href="{{url()->previous()}}" class="btn btn-outline-primary"
+            style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+           Back
+        </a>
+        <br>
         {{-- SEARCH AND FILTER --}}
         <div class="d-flex flex-column p-4" style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
             <form class="d-flex">
@@ -89,42 +94,6 @@
              </div>
         </div>
     </div>
+    
     {{-- PAGINATION --}}
-    {{-- <nav class="mt-5">
-        <ul class="pagination justify-content-center" style="margin: 0;">
-
-            <!-- Prev Button -->
-            <li class="page-item">
-                <a class="page-link fw-bold text-primary" href="#"
-                    style="border:none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin: 0 4px;">
-                    Prev
-                </a>
-            </li>
-
-            <!-- Page 1 (Active) -->
-            <li class="page-item active">
-                <a class="page-link" href="#"
-                    style="border-radius: 8px; width: 40px; height: 40px; background-color: #1D4ED8; color: white; border: none; display: flex; align-items: center; justify-content: center; margin: 0 4px;">
-                    1
-                </a>
-            </li>
-
-            <!-- Page 2-5 (Disabled Look) -->
-            <li class="page-item">
-                <a class="page-link" href="#"
-                    style="border-radius: 8px; width: 40px; height: 40px; background-color: #f8f9fa; color: #ccc; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; margin: 0 4px;">
-                    2
-                </a>
-            </li>
-
-
-            <!-- Next Button -->
-            <li class="page-item">
-                <a class="page-link fw-bold text-primary" href="#"
-                    style="border:none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin: 0 4px;">
-                    Next
-                </a>
-            </li>
-        </ul>
-    </nav> --}}
 @endsection

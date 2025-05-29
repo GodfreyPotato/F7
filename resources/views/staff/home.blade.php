@@ -1,12 +1,11 @@
 @extends('master')
 @section('content')
 
-    <div class="container mt-4">
-        <div class="d-flex gap-4">
-            <div class="d-flex flex-column" style="width: 30%; gap: 26px;">
+    <div class="container mt-5 mb-4">
+            <div class="d-flex" style=" gap: 26px;">
                 <!-- profile card -->
                 <div class="p-4"
-                    style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                    style="width:40%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <span style="font-size: 20px;"
                         class="fw-bold d-flex justify-content-center mb-3 mt-2">{{ Auth::user()->firstname }}
                         {{ Auth::user()->lastname }}</span>
@@ -24,49 +23,8 @@
                     </a>
                 </div>
 
-                <!-- notifications -->
-                <div class="p-4 bg-danger h-100"
-                    style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-                    <span style="font-size: 20px;"
-                        class="fw-bold mb-3 mt-2">Reviewed Leave Requests</span>
-                    <hr>
-                    {{-- for loop --}}
-                    <div class="p-2 d-flex justify-content-between align-items-center"
-                                style=" box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 5px;">
-                        <span class="fw-bold" style="font-size: 16px">
-                           name of the letter
-                        </span>
-                        <span>
-                             date accepted
-                        </span>
-                    </div>
-                    <br>
-                    <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 5px;">
-                        <span class="fw-bold" style="font-size: 16px">
-                           name of the letter
-                        </span>
-                        <span>
-                             date accepted
-                        </span>
-                    </div>
-                    <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 5px;">
-                        <span class="fw-bold" style="font-size: 16px">
-                           name of the letter
-                        </span>
-                        <span>
-                             date accepted
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- right column -->
-            <div class="d-flex flex-column" style="width: 68%; height: 30%; gap: 20px;">
                 <!-- Attendance Logs-->
-                <div class="p-4"
+                <div class="p-4 w-100"
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <div class="d-flex justify-content-between ">
                         <span style="font-size: 20px;" class="fw-bold">Attendance Logs</span>
@@ -186,9 +144,126 @@
                         @endif
                     </div>
                 </div>
-
+            </div>
+            
+            <div class="d-flex mt-4" style="gap: 20px;">
+                <!--Notifications -->
+                <div class="p-4 h-50"
+                    style="width: 40%; box-shadow: 0px 0px 4.2px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                    <h5 class="fw-bold mb-3 mt-2">Reviewed Leave Requests</h5>
+                    <hr>
+                    <div style="height: 300px; overflow-y: auto;" class="d-flex flex-column gap-2">
+                        {{-- for loop --}}
+                            <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div>
+                             <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
+                                <span class="fw-bold" style="font-size: 16px">
+                                    letter name
+                                </span>
+                                <span>
+                                    date
+                                </span>
+                            </div>
+                    </div>
+                </div>
                 <!-- Recent Leave Requests -->
-                <div class="p-4"
+                <div class="p-4 w-100"
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <div class="d-flex justify-content-between">
                         <span style="font-size: 20px;" class="fw-bold">Recent Leave Requests</span>
@@ -237,31 +312,12 @@
                                 </span>
                             </div>
                         @endforeach
-                        {{-- <div class="p-3"
-                            style="width: 100%; box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-                            <div style="display: flex; align-items: center;">
-                                <!-- Vertical line -->
-                                <div
-                                    style="width: 5px; height: 40px; background-color: #FFE699; margin-right: 10px; border-radius: 2px;">
-                                </div>
-                                <div>
-                                    <div style="font-weight: bold;">Vacation Leave</div>
-                                    <div style="font-size: 14px; color: #666;">March 20-22, 2025</div>
-                                </div>
-                            </div>
-
-                            <!-- status badge -->
-                            <span class="badge d-flex justify-content-center align-items-center fw-bold"
-                                style="background-color: #FFF6D9; color: #EAB308; font-size: 14px; padding: 6px 12px; border-radius: 5px;">
-                                <img src="{{ asset('images/clock2.png') }}"
-                                    style="width: 20px; height: 20px; margin-right: 10px">
-                                Pending
-                            </span>
-                        </div> --}}
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="d-flex align-items-center justify-content-center">
+                        {{$letters->links('vendor.pagination.custom')}}
+                    </div>
     </div>
 
 
