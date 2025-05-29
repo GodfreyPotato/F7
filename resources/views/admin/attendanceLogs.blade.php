@@ -2,6 +2,10 @@
 @section('content')
     <div class="container" style="margin-top: 5vw;">
         <div class="d-flex flex-column">
+            <a href="{{url()->previous()}}" class="btn btn-outline-primary"
+            style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+           Back
+        </a>
             <div class="p-4 mt-4"
                 style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                 <div class="d-flex justify-content-between">

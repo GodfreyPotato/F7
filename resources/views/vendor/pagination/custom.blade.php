@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <nav class="mt-5">
+    <nav>
         <ul class="pagination justify-content-center" style="margin: 0;">
 
             {{-- Prev Button --}}

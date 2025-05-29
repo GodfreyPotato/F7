@@ -13,18 +13,99 @@ class UserController extends Controller
 {
     //guys dito po ilalagay ung mga function na Login, Logout, Register, forgot password
 
-    public function index(){
+    public function index()
+    {
         $users = User::where('role', '!=', 'admin')
-        ->orderBy('lastname')
-        ->get();
+            ->orderBy('lastname')
+            ->simplePaginate(8);
         return view('admin.staffListing', compact('users'));
     }
-
-
-    public function login(Request $request)
+    public function search(String $word = '')
     {
-   
+        $users = [];
+        if (strlen($word) > 0) {
+            $users = User::where('role', '!=', 'admin')
+                ->orderBy('lastname')
+                ->whereLike('lastname', "%{$word}%")
+                ->orWhereLike('firstname', "%{$word}%")
+                ->orWhereLike('middlename', "%{$word}%")
+                ->orWhereLike('department', "%{$word}%")
+                ->simplePaginate(8);
+        } else {
+            $users = User::where('role', '!=', 'admin')
+                ->orderBy('lastname')
+                ->simplePaginate(8);
+        }
+        $result = "";
+        foreach ($users as $user) {
+            $name = ucfirst($user->lastname) . ', ' . ucfirst($user->firstname) . ' ' . ucfirst(substr($user->middlename, 0, 1)) . '.';
+            $email = $user->email;
+
+            // Department name switch
+            $code = $user->department;
+            switch ($code) {
+                case 'BSIT':
+                    $dept = 'BS Information Technology';
+                    break;
+                case 'BSMATH':
+                    $dept = 'BS Mathematics';
+                    break;
+                case 'BSCE':
+                    $dept = 'BS Civil Engineering';
+                    break;
+                case 'BSED':
+                case 'BSE':
+                    $dept = 'BS Education';
+                    break;
+                case 'BSCoE':
+                    $dept = 'BS Computer Engineering';
+                    break;
+                case 'BSME':
+                    $dept = 'BS Mechanical Engineering';
+                    break;
+                case 'BSA':
+                    $dept = 'BS Architecture';
+                    break;
+                case 'BSECE':
+                    $dept = 'BS Early Childhood Education';
+                    break;
+                case 'ABEL':
+                    $dept = 'AB English Language';
+                    break;
+                case 'NI':
+                    $dept = 'Non Instructional';
+                    break;
+                case 'BSEE':
+                    $dept = 'BS Electrical Engineering';
+                    break;
+                default:
+                    $dept = 'Unknown Course Code';
+                    break;
+            }
+
+            $role = $user->role === "ins" ? "Instructional" : "Non Instructional";
+            $editIcon = asset('images/edit.png'); // Only works if called from Blade view, otherwise hardcode or use full URL
+
+            $result .= '
+        <tr>
+            <td>' . $name . '</td>
+            <td>' . $email . '</td>
+            <td>' . $dept . '</td>
+            <td>' . $role . '</td>
+            <td class="d-flex justify-content-center">
+                <a href="" class="me-3">
+                    <img src="' . $editIcon . '" alt="View Schedule">
+                </a>
+            </td>
+        </tr>';
+        }
+
+
+
+        return response($result);
     }
+
+    public function login(Request $request) {}
 
     // Logout
 
@@ -76,5 +157,5 @@ class UserController extends Controller
             back()->withErrors(['email' => __($status)]);
     }
 
-    
+    //add edit functionality
 }

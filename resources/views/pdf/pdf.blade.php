@@ -38,6 +38,11 @@
 <body style="font-family: Arial, Helvetica, sans-serif;" @if ($preview==1)
     class="container p-2"
 @endif>
+        <a href="{{url()->previous()}}" class="btn btn-outline-primary mt-2"
+            style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+           Back
+        </a>
+        <br>
 
     <div style="text-align: center; font-size: 12px;margin-bottom:30px;">
         PANGASINAN

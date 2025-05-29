@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
     <div class="container d-flex flex-column " style="margin-top: 5vw;">
-        <a href="{{url()->previous()}}" class="btn btn-outline-primary"
+        <a href="{{route('admin.index')}}" class="btn btn-outline-primary"
             style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
            Back
         </a>
@@ -58,7 +58,8 @@
         </div>
 
     </div>
-    <div class="d-flex align-items-center justify-content-center mt-4"> {{ $letters->links() }}</div>
+    <div class="d-flex align-items-center justify-content-center my-5"> {{ $letters->links('vendor.pagination.custom') }}</div>
+
 
     <script>
         $(document).ready(function () {

@@ -25,12 +25,15 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::get('searchLeave/{word?}', [LetterController::class, 'search'])->name('searchLeave');
+
+        Route::get('searchEmployee/{word?}', [UserController::class, 'search'])->name('searchEmployee');
         Route::resource('admin', AdminController::class);
         Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
         Route::resource('leave', LeaveController::class);
 
         Route::resource('letter', LetterController::class)->only(['show', 'create']);
         Route::get('/userListing', [UserController::class, 'index'])->name('staffListing');
+        //add edit for stafflisting
         Route::post('/approveLetter/{letter}', [LetterController::class, 'approve'])->name('approveLetter');
         Route::post('/reject/{letter}', [LetterController::class, 'reject'])->name('rejectLetter');
         Route::resource('pdf', PdfController::class);

@@ -62,6 +62,11 @@ $user = Auth::user();
         <!-- Calendar -->
         <div class="d-flex justify-content-center align-items-center">
             <div class="col-md-9 col-lg-10 p-4">
+                <a href="{{url()->previous()}}" class="btn btn-outline-primary"
+                    style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+                Back
+                </a>
+                <br>
                 @if(isset($user))
                     <h2 class="mb-4">{{ $user->firstname }} {{ $user->lastname }} - {{ now()->format('F Y') }}</h2>
                     

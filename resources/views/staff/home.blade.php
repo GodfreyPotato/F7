@@ -17,11 +17,58 @@
                         <p style="color: #878585">Type of Employee:</p>
                         <p>{{ Auth::user()->role == "ins" ? "Instructional Staff" : "Non-Instructional Staff" }}</p>
                     </div>
-                    <a href="" class="btn w-100 d-flex align-items-center justify-content-center" style="background-color: #1D4ED8; color: white;">
-                        <img src="{{ asset('images/edit-contained.png') }}" style="width: 23px; height: 23px; margin-right: 8px;">
-                        Edit Profile
+                    <a href="" 
+                        class="btn w-100 d-flex align-items-center justify-content-center" 
+                        style="background-color: #1D4ED8; color: white;" 
+                        data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <img src="{{ asset('images/edit-contained.png') }}" style="width: 23px; height: 23px; margin-right: 8px;">
+                            Edit Profile
                     </a>
                 </div>
+
+                <!-- Modal (EDIT PROFILE) -->
+                <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="editProfileModalLabel">Edit Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form action="" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="firstname" class="form-label">First Name</label>
+                                    <input type="text" name="firstname" id="firstname" class="form-control" value="{{ Auth::user()->firstname }}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="lastname" class="form-label">Last Name</label>
+                                    <input type="text" name="lastname" id="lastname" class="form-control" value="{{ Auth::user()->lastname }}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="department" class="form-label">Department</label>
+                                    <input type="text" name="department" id="department" class="form-control" value="{{ Auth::user()->department }}">
+                                </div>
+                            </div>
+
+                            <div class="modal-footer d-flex j">
+                                <a href="" class="btn btn-outline-primary me-2"
+                                style="width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">Cancel</a>
+                                <button type="submit" class="btn text-white"
+                                    style="background-color: #1D4ED8; width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Attendance Logs-->
                 <div class="p-4 w-100"
@@ -154,110 +201,37 @@
                     <hr>
                     <div style="height: 300px; overflow-y: auto;" class="d-flex flex-column gap-2">
                         {{-- for loop --}}
-                            <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
+                            <div class="p-3 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border: 1px solid #EFF6FF; border-radius: 8px; background-color: #ffffff;">
+                                
+                                <span class="fw-semibold" style="font-size: 16px; color: #1E293B;">
+                                    Letter Name
                                 </span>
-                                <span>
-                                    date
+
+                                <span style="font-size: 14px; color: #64748B;">
+                                    May 29, 2025
                                 </span>
                             </div>
-                             <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
+                            <div class="p-3 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border: 1px solid #EFF6FF; border-radius: 8px; background-color: #ffffff;">
+                                
+                                <span class="fw-semibold" style="font-size: 16px; color: #1E293B;">
+                                    Letter Name
                                 </span>
-                                <span>
-                                    date
+
+                                <span style="font-size: 14px; color: #64748B;">
+                                    May 29, 2025
                                 </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
+                            </div>
+                            <div class="p-3 d-flex justify-content-between align-items-center"
+                                style="box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border: 1px solid #EFF6FF; border-radius: 8px; background-color: #ffffff;">
+                                
+                                <span class="fw-semibold" style="font-size: 16px; color: #1E293B;">
+                                    Letter Name
                                 </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
-                                </span>
-                            </div> <div class="p-2 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.18); background-color: #EFF6FF; border-radius: 5px;">
-                                <span class="fw-bold" style="font-size: 16px">
-                                    letter name
-                                </span>
-                                <span>
-                                    date
+
+                                <span style="font-size: 14px; color: #64748B;">
+                                    May 29, 2025
                                 </span>
                             </div>
                     </div>
@@ -315,9 +289,9 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-center">
+            <div class="d-flex align-items-center justify-content-center my-5">
                         {{$letters->links('vendor.pagination.custom')}}
-                    </div>
+            </div>
     </div>
 
 

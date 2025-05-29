@@ -2,6 +2,11 @@
 @section('content')
 
     <div class="container mt-4">
+        <a href="{{route('staff.index')}}" class="btn btn-outline-primary"
+                    style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+                Back
+        </a>
+        <br>
         <div class="d-flex">
             <!-- profile card -->
             <div class="p-4 me-4"
@@ -37,20 +42,17 @@
 
                         {{-- Cause of Absence --}}
                         <div class="mb-3">
-                            @error('cause')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
                             <label for="cause" class="form-label">Cause of Absence</label>
                             <input type="text" class="form-control" id="cause" name="cause" placeholder="">
+                             @error('cause')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
 
                         {{-- Date Range and CS Form --}}
                         <div class="row mb-3">
                             {{-- Date Range --}}
                             <div class="col-md-6">
-                                @error('date_start')
-                                    <span class="text-danger">{{$message}}</span>
-                                @enderror
                                 <label for="date_range" class="form-label">Date Range</label>
                                 <div class="d-flex justify-content-between">
                                     <input type="date" class="form-control" id="date_start" min="{{date('Y-m-d')}}"
@@ -59,19 +61,22 @@
                                     <input type="date" class="form-control" id="date_end" name="end_date"
                                         style="width:48%;">
                                 </div>
+                                @error('date_start')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
 
                             {{-- CS Form --}}
                             <div class="col-md-6">
+                                <label for="cs_form" class="form-label">CS Form</label>
+                                <input type="file" class="form-control" id="cs_form" name="file_path">
                                 @error('file_path')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
-                                <label for="cs_form" class="form-label">CS Form</label>
-                                <input type="file" class="form-control" id="cs_form" name="file_path">
                             </div>
                         </div>
 
-                        {{-- Save and Cance Buttons --}}
+                        {{-- Save and Cancel Buttons --}}
                         <div class="d-flex justify-content-end">
                             <a href="" class="btn btn-outline-primary me-2"
                                 style="width: 5.7vw; height: 2.2vw; display: flex; align-items: center; justify-content: center;">Cancel</a>

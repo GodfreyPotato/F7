@@ -28,7 +28,7 @@ class LetterController extends Controller
         $letters = Letter::join('users', 'users.id', 'letters.user_id')
             ->select('*', 'letters.updated_at as date', 'letters.id as id', 'users.id as user_id')
             ->where('letter_status', '=', 'pending')
-            ->simplePaginate(4);
+            ->paginate(4);
 
         return view('admin.leaveRequests', compact('letters'));
     }
@@ -45,12 +45,12 @@ class LetterController extends Controller
                         ->orWhere('lastname', 'like', "%{$word}%")
                         ->orWhere('middlename', 'like', "%{$word}%");
                 })
-                ->simplePaginate(4);
+                ->paginate(4);
         } else {
             $letters = Letter::join('users', 'users.id', 'letters.user_id')
                 ->select('*', 'letters.updated_at as date', 'letters.id as id', 'users.id as user_id')
                 ->where('letter_status', '=', 'pending')
-                ->simplePaginate(4);
+                ->paginate(4);
         }
 
         $result = "";
