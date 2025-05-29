@@ -3,19 +3,10 @@
     <div class="container" style="margin-top: 5vw;">
         {{-- SEARCH AND FILTER --}}
         <div class="d-flex flex-column p-4" style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-            <div class="d-flex justify-content-between">
-                <form class="d-flex">
+            <form class="d-flex">
                     <input type="search" placeholder="Search..."
-                        style="padding:12px; width: 55vw; height: 3vw; border: 2px solid #BCBCBC; border-radius: 0.5vw;">
-                </form>
-                <div class="d-flex me-2">
-                    <input type="date" class="form-control me-3" id="#"  min="{{date('Y-m-d')}}"
-                     name="#" style="height:3vw; border: 2px solid #BCBCBC;">
-                     <select class="form-select" name="department" id="department" style="height: 3vw; border: 2px solid #BCBCBC;">
-                        <option value="" disabled selected>Department</option>
-                    </select>
-                </div>
-            </div>
+                        style="padding:12px; width: 85vw; height: 3vw; border: 2px solid #BCBCBC; border-radius: 0.5vw;">
+            </form>
         </div>
         {{-- STAFF LISTING--}}
         <div class="d-flex flex-column p-4 mt-4" style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
@@ -99,7 +90,7 @@
         </div>
     </div>
     {{-- PAGINATION --}}
-    <nav class="mt-5">
+    {{-- <nav class="mt-5">
         <ul class="pagination justify-content-center" style="margin: 0;">
 
             <!-- Prev Button -->
@@ -135,5 +126,5 @@
                 </a>
             </li>
         </ul>
-    </nav>
+    </nav> --}}
 @endsection

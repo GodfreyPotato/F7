@@ -29,7 +29,7 @@
 
 
             <div class="d-flex justify-content-between" style="margin-top: 87px;">
-                <div class="mb-4" style="width: 30%">
+                <div class="mb-4" style="width: 23%">
                     <a href="{{route('staffListing')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
@@ -46,7 +46,7 @@
                     </a>
                 </div>
 
-                <div class="mb-4" style="width: 30%">
+                <div class="mb-4" style="width: 23%">
                     <a href="{{route('letter.create')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
@@ -62,8 +62,24 @@
                     </a>
                 </div>
 
+                <div class="mb-4" style="width: 23%">
+                    <a href="{{route('attendanceLogs')}}" class="text-decoration-none">
+                        <div class="card h-100 text-center"
+                            style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">
+                            <div class="card-body">
+                                <div
+                                    style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;">
+                                    <img src="{{ asset('images/clock_white.png') }}" style="height: 45px; width: 45px;">
+                                </div>
+                                <h5 class="card-title" style="color: white;">Attendance Logs</h5>
+                                <p class="card-text" style="color: white; font-size: 14px;">View Logs</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-                <div class="mb-4" style="width: 30%">
+
+                <div class="mb-4" style="width: 23%">
                     <a href="{{route('pdf.index')}}" class="text-decoration-none">
                         <div class="card h-100 text-center"
                             style="padding-top: 16px; padding-bottom: 16px; background-color: #0d6efd;">

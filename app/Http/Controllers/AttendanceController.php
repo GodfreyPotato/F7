@@ -30,4 +30,9 @@ class AttendanceController extends Controller
 
     return view('attendance.employee_attendance', compact('employees', 'user', 'attendance'));
     }
+
+
+    public function attendanceLogs(){
+        return view('admin.attendanceLogs');
+    }
 }

@@ -98,7 +98,7 @@
 
                 <button type="submit" class="btn btn-primary w-100"  style="height: 3vw;">Register</button>
             </form>
-            <div class="mt-5 d-flex justify-content-center align-items-center">Already have an account? <a href="{{route('login.index')}}">Login</a> </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center">Already have an account?&nbsp;<a href="{{route('login.index')}}">Login</a> </div>
             </div>
         </div>
     </div>

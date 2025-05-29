@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('pdf', PdfController::class);
         Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
         Route::post('/addSaturdayService', [ServiceController::class, "store"])->name('addSaturday');
+        Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
     });
 
 
