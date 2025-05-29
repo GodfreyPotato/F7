@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::get('searchLeave/{word?}', [LetterController::class, 'search'])->name('searchLeave');
+
+        Route::get('searchEmployee/{word?}', [UserController::class, 'search'])->name('searchEmployee');
         Route::resource('admin', AdminController::class);
         Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
         Route::resource('leave', LeaveController::class);

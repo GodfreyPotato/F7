@@ -25,9 +25,9 @@ class StaffController extends Controller
         return view('staff.home', compact('log', 'letters'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+
+
     public function create()
     {
         //
