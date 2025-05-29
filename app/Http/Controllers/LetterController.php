@@ -24,14 +24,60 @@ class LetterController extends Controller
      */
     public function create()
     {
-        //
+
         $letters = Letter::join('users', 'users.id', 'letters.user_id')
             ->select('*', 'letters.updated_at as date', 'letters.id as id', 'users.id as user_id')
             ->where('letter_status', '=', 'pending')
-            ->get();
+            ->simplePaginate(4);
+
         return view('admin.leaveRequests', compact('letters'));
     }
+    public function search(String $word = '')
+    {
+        $letters = [];
+        if (strlen($word) > 0) {
+            $letters = Letter::join('users', 'users.id', 'letters.user_id')
+                ->select('*', 'letters.updated_at as date', 'letters.id as id', 'users.id as user_id')
+                ->where('letter_status', '=', 'pending')
+                ->where(function ($query) use ($word) {
+                    $query->where('cause', 'like', "%{$word}%")
+                        ->orWhere('firstname', 'like', "%{$word}%")
+                        ->orWhere('lastname', 'like', "%{$word}%")
+                        ->orWhere('middlename', 'like', "%{$word}%");
+                })
+                ->simplePaginate(4);
+        } else {
+            $letters = Letter::join('users', 'users.id', 'letters.user_id')
+                ->select('*', 'letters.updated_at as date', 'letters.id as id', 'users.id as user_id')
+                ->where('letter_status', '=', 'pending')
+                ->simplePaginate(4);
+        }
 
+        $result = "";
+        foreach ($letters as $letter) {
+            $name = ucfirst($letter->firstname) . ' ' . strtoupper(substr($letter->middlename, 0, 1)) . '. ' . ucfirst($letter->lastname);
+            $date = \Carbon\Carbon::parse($letter->date)->format('M d, Y');
+            $time = \Carbon\Carbon::parse($letter->date)->format('g:i A');
+            $url = route('letter.show', ['letter' => $letter->id]);
+
+            $result .= '
+            <div class="p-4 d-flex justify-content-between align-items-center mt-3"
+                style="box-shadow: 0px 0px 4.2px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
+                <div class="d-flex flex-column">
+                    <p class="fw-bold mb-0" style="font-size: 18px;">' . $name . '</p>
+                    <p class="fw-semibold mb-0" style="font-size: 16px; color: #7B7878;">' . $date . '
+                        <span class="ms-2" style="font-size: 16px; color: #7B7878;">' . $time . '</span>
+                    </p>
+                </div>
+                <a href="' . $url . '" class="btn d-flex justify-content-center align-items-center"
+                    style="background-color: #1D4ED8; color: white; width: 10vw;">
+                    Review
+                </a>
+            </div>';
+        }
+
+        return response($result);
+    }
     /**
      * Store a newly created resource in storage.
      */
