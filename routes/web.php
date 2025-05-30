@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
         Route::post('/addSaturdayService', [ServiceController::class, "store"])->name('addSaturday');
         Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
+        Route::get('/filterPDF',[PdfController::class, "filterPDF"]);
     });
 
 

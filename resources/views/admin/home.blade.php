@@ -104,7 +104,7 @@
                     ->count();
 
                 $totalEmployees = User::where('role', '!=', 'admin')->count();
-
+                $totalAccepted = Letter::where('letter_status','!=','pending')->count();
             @endphp
             <div class="row g-3 mt-3">
                 <div class="col-12 col-md-4">
@@ -129,7 +129,7 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Requests</p>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Leave Requests</p>
                                 <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalPending}}</h2>
                             </div>
                             <div
@@ -145,8 +145,8 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Departments</p>
-                                <h2 style="margin-bottom: 0; font-weight: 700;">3</h2>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Accepted Leave Request</p>
+                                <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalAccepted}}</h2>
                             </div>
                             <div
                                 style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color:  #DBEAFE;">

@@ -60,51 +60,32 @@ class PdfController extends Controller
 
         return $pdf->stream('document.pdf');
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  public function filterPDF(Request $request)
+{
+    $month = $request->query('month', now()->month);
+    $year = $request->query('year', now()->year);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(pdf $pdf)
-    {
-        //
-    }
+    $ni = User::where('role',  'ni')
+        ->whereHas('logs', function ($query) {
+            $query->where('undertime', '>', 0);
+        })
+         ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+        ->with(['logs', 'leaves.letter', 'services'])
+        ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(pdf $pdf)
-    {
-        //
-    }
+    $ins = User::where('role', 'ins')
+        ->whereHas('logs', function ($query) {
+            $query->where('undertime', '>', 0);
+        })  
+        ->whereMonth('created_at', $month)
+        ->whereYear('created_at', $year)
+        ->with(['logs', 'leaves.letter', 'services'])
+        ->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, pdf $pdf)
-    {
-        //
-    }
+    $html = view('partials.table_rows', compact('ni', 'ins', 'month', 'year'))->render();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(pdf $pdf)
-    {
-        //
-    }
+    return response()->json(['html' => $html]);
+}
 }

@@ -67,8 +67,8 @@
             {{-- @if ($preview==1)
             <div class="d-flex">
                 <div class="me-2">
-                     <select class="form-select" name="month" style="height: 90%">
-                        <option disabled selected>Month</option>
+                     <select class="form-select" name="month" id="month" style="height: 90%">
+                        <option disabled selected value="{{ now()->month }}">{{ now()->format('M') }}</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">March</option>
@@ -84,9 +84,9 @@
                     </select>
                 </div>
                 <div>
-                    <select class="form-select" name="year" style="height: 90%">
-                        <option disabled selected>Year</option>
-                        @for ($y = date('Y'); $y >= 1950; $y--)
+                    <select class="form-select" name="year" id="year" style="height: 90%">
+                        <option disabled selected value="{{ now()->year }}">{{ now()->year }}</option>
+                        @for ($y = date('Y'); $y >= 2000; $y--)
                             <option value="{{ $y }}">{{ $y }}</option>
                         @endfor
                     </select>
@@ -110,7 +110,7 @@
                     <th>Add Service Rendered on Saturday</th>
                 @endif
             </tr>
-        <tbody style="font-size: 12px;"> 
+        <tbody style="font-size: 12px;" id="table-body"> 
             @php
                 $ctr = 1;
             @endphp
@@ -202,7 +202,7 @@
             @foreach ($ins as $user)
                 <tr>
                     <td>{{$ctr}}</td>
-                    <td style="text-align: start; padding: 10px;">{{$user->firstname}} {{$user->lastname}}</td>
+                    <td style="text-align: start; padding: 10px;">{{$user->lastname}}, {{$user->firstname}} </td>
                     <td  style="text-align: start;">{{convertMinutesToHoursMins($user->logs->whereBetween('created_at',[ now()->startOfMonth(), now()->endOfMonth()])->sum('undertime'))}}</td>
                     <td  style="text-align: start;">
                         @php
@@ -320,10 +320,34 @@
     @endif
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function(){ 
+            
+            $('#month, #year').on('change', function(){
+                let month = $('#month').val();
+                let year = $('#year').val();
+               
+                $.ajax({
+                    url: '/filterPDF',
+                    type: 'GET',
+                    data: {
+                        month: month,
+                        year: year
+                    },
+                    success: function(response){
+                        $('#table-body').html(response)
+                    },
+                    error: function(e){
+                        alert('error '+ e.message)
+                    }
+                    
+                });
+            });
+
             $('#add').on('click',function(){
                 $('#user_id').val($(this).data('user-id'));
             });
+
+           
         });
     </script>
 </body>
