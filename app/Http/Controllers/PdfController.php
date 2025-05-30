@@ -17,23 +17,46 @@ class PdfController extends Controller
     public function index()
     {
         $preview = 1;
-        $users = User::where('role', '!=', 'admin')
+        $ni = User::where('role',  'ni')
             ->whereHas('logs', function ($query) {
                 $query->where('undertime', '>', 0);
             })
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
             ->with(['logs', 'leaves.letter', 'services'])
             ->get();
-        return view('pdf.pdf', compact('users', 'preview'));
+        $ins = User::where('role', 'ins')
+            ->whereHas('logs', function ($query) {
+                $query->where('undertime', '>', 0);
+            })
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->with(['logs', 'leaves.letter', 'services'])
+            ->get();
+        return view('pdf.pdf', compact('ni', 'ins','preview'));
     }
 
     //shows the pdf file
     public function download()
     {
         $preview = 0;
-        $users = User::where('role', '!=', 'admin')
-            ->with(['logs', 'leaves.letter'])
+               $ni = User::where('role',  'ni')
+            ->whereHas('logs', function ($query) {
+                $query->where('undertime', '>', 0);
+            })
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->with(['logs', 'leaves.letter', 'services'])
             ->get();
-        $pdf = Pdf::loadView('pdf.pdf', compact('users', 'preview'));
+        $ins = User::where('role', 'ins')
+            ->whereHas('logs', function ($query) {
+                $query->where('undertime', '>', 0);
+            })
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->with(['logs', 'leaves.letter', 'services'])
+            ->get();
+        $pdf = Pdf::loadView('pdf.pdf', compact('ins','ni', 'preview'));
 
         return $pdf->stream('document.pdf');
     }

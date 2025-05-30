@@ -19,7 +19,7 @@
         </a>
         @else
          <div class="d-flex gap-3 mt-4">
-        <a href="{{route('login.index')}}">
+        <a href="{{route('login')}}">
             <button type="button" class="btn text-white" style="background-color: #3B82F6; width: 15.68vw; height: 3vw; font-size: 1vw;">
             Login
             </button>

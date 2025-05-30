@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Letter;
 use App\Models\Log;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class StaffController extends Controller
 {
@@ -17,14 +20,18 @@ class StaffController extends Controller
         //
         $letters = Letter::where('user_id', Auth::id())
             ->orderBy('updated_at', 'desc')
+            ->where('letter_status','pending')
             ->paginate(4);
         $log = Log::where('user_id', Auth::id())
-            ->whereDay('log_date', today())
+            ->whereDay('log_date', now())
             ->orderBy('updated_at', 'desc')
             ->first();
+          $reviewedLetters = Letter::where('user_id', Auth::id())
+            ->orderBy('updated_at', 'desc')
+            ->where('letter_status','!=','pending')
+            ->get();
         
-        
-        return view('staff.home', compact('log', 'letters'));
+        return view('staff.home', compact('log', 'letters','reviewedLetters'));
     }
 
 
@@ -62,9 +69,26 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, String $id)
     {
         //
+        $validator = Validator::make($request->all(),[
+            'firstname' => 'required',
+            'middlename'=>'required',
+            'lastname'=>'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::find($id);
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->middlename = $request->middlename;
+        $user->save();
+        return redirect()->route('staff.index');
     }
 
     /**

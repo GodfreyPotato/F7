@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::where('role', '!=', 'admin')
             ->orderBy('lastname')
-            ->simplePaginate(8);
+            ->paginate(8);
         return view('admin.staffListing', compact('users'));
     }
     public function search(String $word = '')
@@ -153,7 +153,7 @@ class UserController extends Controller
             }
         );
 
-        return $status === Password::PASSWORD_RESET ? redirect()->route('auth.login')->with('status', __($status)) :
+        return $status === Password::PASSWORD_RESET ? redirect('/login')->with('status', __($status)) :
             back()->withErrors(['email' => __($status)]);
     }
 

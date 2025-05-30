@@ -18,7 +18,7 @@
             $result .= $mins . ' min' . ($mins > 1 ? 's' : '');
         }
 
-        return $result ?: '0 mins';
+        return $result ;
     }
 @endphp
 
@@ -38,10 +38,13 @@
 <body style="font-family: Arial, Helvetica, sans-serif;" @if ($preview==1)
     class="container p-2"
 @endif>
-        <a href="{{url()->previous()}}" class="btn btn-outline-primary mt-2"
+        @if ($preview==1)
+            <a href="{{route('admin.index')}}" class="btn btn-outline-primary mt-2"
             style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
            Back
         </a>
+        @endif
+        
         <br>
 
     <div style="text-align: center; font-size: 12px;margin-bottom:30px;">
@@ -61,7 +64,7 @@
             teaching & non teaching
             personnel in the college to wit:
         </span>
-            @if ($preview==1)
+            {{-- @if ($preview==1)
             <div class="d-flex">
                 <div class="me-2">
                      <select class="form-select" name="month" style="height: 90%">
@@ -89,17 +92,16 @@
                     </select>
                 </div>
             </div>
-            @endif
+            @endif --}}
     </div>
     <table border="1" style="width:100%; border-collapse: collapse; text-align: center;" @if ($preview==1)
         class ="table table-bordered"
     @endif>
-        <thead style="font-size: 12px;">
-            <tr>
+            <tr style="font-size: 12px; ">
                 <th></th>
-                <th>Non Structural Staff</th>
-                <th>Undertime</th>
-                <th>Inclusive Date of Absence</th>
+                <th style="width: 120px;"><b>NON INSTRUCTIONAL STAFF</b></th>
+                <th style="width: 110px;">Undertime</th>
+                <th style="width: 120px;">Inclusive Date of Absence</th>
                 <th>Action Taken (SO,PD,OP,RS)</th>
                 <th>Cause of Absence</th>
                 <th>Service rendered on Saturday</th>
@@ -108,17 +110,17 @@
                     <th>Add Service Rendered on Saturday</th>
                 @endif
             </tr>
-        </thead>
-        <tbody style="font-size: 12px;">
+        <tbody style="font-size: 12px;"> 
             @php
-                $ctr =1;
+                $ctr = 1;
             @endphp
-            @foreach ($users as $user)
+            @foreach ($ni as $user)
+           
                 <tr>
                     <td>{{$ctr}}</td>
-                    <td>{{$user->firstname}} {{$user->lastname}}</td>
-                    <td>{{convertMinutesToHoursMins($user->logs->whereBetween('created_at',[ now()->startOfMonth(), now()->endOfMonth()])->sum('undertime'))}}</td>
-                    <td>
+                    <td style="text-align: start; padding: 12px;">{{$user->firstname}} {{$user->lastname}}</td>
+                    <td  style="text-align: start;">{{convertMinutesToHoursMins($user->logs->whereBetween('created_at',[ now()->startOfMonth(), now()->endOfMonth()])->sum('undertime'))}}</td>
+                    <td  style="text-align: start;">
                         @php
                             $leaveDates = [];
                             foreach ($user->leaves as $leave) {
@@ -195,7 +197,90 @@
                     $ctr+=1;
                 @endphp
             @endforeach
+            <td colspan="8" style="padding: 20px; text-align: start;"><b>INSTRUCTIONAL STAFF</b></td>
+          
+            @foreach ($ins as $user)
+                <tr>
+                    <td>{{$ctr}}</td>
+                    <td style="text-align: start; padding: 10px;">{{$user->firstname}} {{$user->lastname}}</td>
+                    <td  style="text-align: start;">{{convertMinutesToHoursMins($user->logs->whereBetween('created_at',[ now()->startOfMonth(), now()->endOfMonth()])->sum('undertime'))}}</td>
+                    <td  style="text-align: start;">
+                        @php
+                            $leaveDates = [];
+                            foreach ($user->leaves as $leave) {
+                                if ($leave->letter) { //Check if letter is not null
+                                    
+                                    $start = Carbon\Carbon::parse($leave->letter->start_date);
+                                    $end = Carbon\Carbon::parse($leave->letter->end_date);
 
+                                    if ($start->isSameMonth(now())) {
+                                        if ($start->equalTo($end)) {
+                                            $leaveDates[] = $start->format('j');
+                                        } else {
+                                            $leaveDates[] = $start->format('j') . '–' . $end->format('j');
+                                        }
+                                    }
+                                }
+                            }
+                            $formattedLeaveString = implode(';', $leaveDates);
+                        @endphp
+                                        {{ $formattedLeaveString ?now()->format('M')." " . $formattedLeaveString . ', ' . now()->year : '' }}
+                    </td>
+
+                    <td>
+                        @foreach ($user->leaves as $leave)
+                           @if(Carbon\Carbon::parse($leave->letter->start_date)->month==now()->month&& Carbon\Carbon::parse($leave->letter->start_date)->year==now()->year)
+                            {{$leave->action_taken}}
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($user->leaves as $leave)
+                            @if(Carbon\Carbon::parse($leave->letter->start_date)->month==now()->month&& Carbon\Carbon::parse($leave->letter->start_date)->year==now()->year)
+                                {{$leave->cause_by_admin}}
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endif
+                        @endforeach</td>
+                    <td>
+                         @foreach ($user->services as $service)
+                            @if(Carbon\Carbon::parse($service->created_at)->month==now()->month&& Carbon\Carbon::parse($service->created_at)->year==now()->year)
+                                {{$service->service}}
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                    @foreach ($user->leaves as $leave)
+                    @if(Carbon\Carbon::parse($leave->letter->start_date)->month==now()->month&& Carbon\Carbon::parse($leave->letter->start_date)->year==now()->year)
+                        @if($leave->with_f6 != null)
+                            w/ F6  @if (!$loop->last)
+                                    ,
+                                @endif
+                        @else 
+                            w/o F6  @if (!$loop->last)
+                                    ,
+                                @endif
+                        @endif
+                    @endif
+                    @endforeach
+                </td>
+                 @if ($preview==1)
+                       <td><button class="btn btn-secondary btn-sm" type="submit" data-bs-toggle="modal"
+                        data-bs-target="#actionModal" id="add" data-user-id="{{$user->id}}">Add Saturday Service</button></td>
+                @endif
+                </tr>
+
+                @php
+                    $ctr+=1;
+                @endphp
+            @endforeach
         </tbody>
     </table>
     @if ($preview == 1)

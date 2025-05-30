@@ -62,7 +62,7 @@ class RegistrationController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->route('login.index');
+        return redirect()->route('login');
     }
 
     /**

@@ -22,13 +22,7 @@
                     <p style="color: #878585">Type of Employee:</p>
                     <p>{{Auth::user()->role == "ins" ? "Instructional Staff" : "Non-Instructional Staff"}}</p>
                 </div>
-                <div>
-                    <a href="" class="btn d-flex justify-content-center" style="background-color: #1D4ED8; color: white;">
-                        <img src="{{ asset('images/edit-contained.png') }}"
-                            style="width: 23px; height: 23px; margin-right: 8px;">
-                        Edit Profile
-                    </a>
-                </div>
+             
             </div>
 
             <!-- right column -->

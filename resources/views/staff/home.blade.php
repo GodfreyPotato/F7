@@ -36,23 +36,22 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <form action="" method="POST">
+                        <form action="{{ route('editProfile',['id'=>Auth::id()]) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="firstname" class="form-label">First Name</label>
                                     <input type="text" name="firstname" id="firstname" class="form-control" value="{{ Auth::user()->firstname }}" required>
                                 </div>
-
+                            <div class="mb-3">
+                                    <label for="middlename" class="form-label">Middle Name</label>
+                                    <input type="text" name="middlename" id="middlename" class="form-control" value="{{ Auth::user()->middlename }}" required>
+                                </div>
                                 <div class="mb-3">
                                     <label for="lastname" class="form-label">Last Name</label>
                                     <input type="text" name="lastname" id="lastname" class="form-control" value="{{ Auth::user()->lastname }}" required>
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="department" class="form-label">Department</label>
-                                    <input type="text" name="department" id="department" class="form-control" value="{{ Auth::user()->department }}">
-                                </div>
+                           
                             </div>
 
                             <div class="modal-footer d-flex j">
@@ -83,7 +82,7 @@
                     </div>
                     <div>
                         <span style="font-size: 20px;" class="fw-light mb-3"><span id="clock"></span> |
-                            <span class="fw-semibold"> {{now()->hour < 12 ? "Morning" : "Afternoon" }}</span></span>
+                            <span class="fw-semibold"> {{now()->hour < 12 ? "Morning" : ( now()->hour > 19 ? "Evening":"Afternoon") }} {{now()}}</span></span>
                     </div>
                     <div class="d-flex justify-content-between mt-2">
 
@@ -201,46 +200,27 @@
                     <hr>
                     <div style="height: 300px; overflow-y: auto;" class="d-flex flex-column gap-2">
                         {{-- for loop --}}
+                            @foreach ($reviewedLetters as $letter )
                             <div class="p-3 d-flex justify-content-between align-items-center"
                                 style="box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border: 1px solid #EFF6FF; border-radius: 8px; background-color: #ffffff;">
                                 
-                                <span class="fw-semibold" style="font-size: 16px; color: #1E293B;">
-                                    Letter Name
+                                <span class="fw-semibold {{ $letter->letter_status == "rejected" ? 'text-danger' : 'text-success' }}" style="font-size: 16px; ">
+                                   {{ $letter->cause }}
                                 </span>
 
                                 <span style="font-size: 14px; color: #64748B;">
-                                    May 29, 2025
+                                    Accepted on: {{ $letter->updated_at->format('M d, Y') }}
                                 </span>
                             </div>
-                            <div class="p-3 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border: 1px solid #EFF6FF; border-radius: 8px; background-color: #ffffff;">
-                                
-                                <span class="fw-semibold" style="font-size: 16px; color: #1E293B;">
-                                    Letter Name
-                                </span>
-
-                                <span style="font-size: 14px; color: #64748B;">
-                                    May 29, 2025
-                                </span>
-                            </div>
-                            <div class="p-3 d-flex justify-content-between align-items-center"
-                                style="box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border: 1px solid #EFF6FF; border-radius: 8px; background-color: #ffffff;">
-                                
-                                <span class="fw-semibold" style="font-size: 16px; color: #1E293B;">
-                                    Letter Name
-                                </span>
-
-                                <span style="font-size: 14px; color: #64748B;">
-                                    May 29, 2025
-                                </span>
-                            </div>
+                            @endforeach
+                           
                     </div>
                 </div>
                 <!-- Recent Leave Requests -->
                 <div class="p-4 w-100"
                     style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                     <div class="d-flex justify-content-between">
-                        <span style="font-size: 20px;" class="fw-bold">Recent Leave Requests</span>
+                        <span style="font-size: 20px;" class="fw-bold">Pending Leave Requests</span>
                         <a href="{{route('letter.index')}}" class="btn d-flex justify-content-center"
                             style="background-color: #1D4ED8; color: white;">
                             <img src="{{ asset('images/plus.png') }}" style="width: 23px; height: 23px; margin-right: 8px;">

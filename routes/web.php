@@ -16,7 +16,7 @@ use App\Http\Controllers\StaffController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
-Route::get('/login', [LoginController::class, "index"])->name('login');
+
 
 Route::middleware('auth')->group(function () {
 
@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/timeOutPm', [LogController::class, 'timeOutPm'])->name('timeOutPm');
         Route::get('/users', [LogController::class, 'logs'])->name('showLogs');
 
+        Route::post('/editProfile/{id}', [StaffController::class, 'update'])->name('editProfile');
 
         // Attendance routes
         Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
@@ -86,7 +87,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [UserController::class, 'resetPassword'])
         ->name('password.update');
 
-
-    Route::resource('/login', LoginController::class);
+    Route::post('/login', [LoginController::class,'store'])->name('login.store');
     Route::resource('/registration', RegistrationController::class);
+    Route::get('/login', [LoginController::class, "index"])->name('login');
 });

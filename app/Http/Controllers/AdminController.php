@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\IsUndertimeGenerated;
 use App\Models\Log;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,13 +17,13 @@ class AdminController extends Controller
     public function index()
     {
         //
-        $isGenerated = IsUndertimeGenerated::where('generated_date', today())
+        $isGenerated = IsUndertimeGenerated::where('generated_date',Carbon::today()->setDate(2025,5,15))
             ->first();
 
         if (!$isGenerated) {
             $isGenerated = new IsUndertimeGenerated;
             $isGenerated->user_id = Auth::id();
-            $isGenerated->generated_date = today();
+            $isGenerated->generated_date = Carbon::today()->setDate(2025,5,15);
             $isGenerated->save();
         }
 

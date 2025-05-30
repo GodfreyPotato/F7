@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-    <div class="container" style="margin-top: 5vw;">
+    <div class="container" style="margin-top: 3vw;">
         <a href="{{route('admin.index')}}" class="btn btn-outline-primary"
             style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
            Back
@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center mt-4">{{ $users->links()}}</div>
+    <div class="d-flex justify-content-center align-items-center my-5">{{ $users->links('vendor.pagination.custom')}}</div>
 
     <script>
         $(document).ready(function () {
