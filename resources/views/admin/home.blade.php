@@ -104,7 +104,7 @@
                     ->count();
 
                 $totalEmployees = User::where('role', '!=', 'admin')->count();
-                $totalAccepted = Letter::where('letter_status','!=','pending')->count();
+                $totalAccepted = Letter::where('letter_status', '!=', 'pending')->count();
             @endphp
             <div class="row g-3 mt-3">
                 <div class="col-12 col-md-4">

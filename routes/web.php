@@ -40,17 +40,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
         Route::post('/addSaturdayService', [ServiceController::class, "store"])->name('addSaturday');
         Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
-        Route::get('/filterPDF',[PdfController::class, "filterPDF"]);
+        Route::get('/filterPDF/{month?}/{year?}', [PdfController::class, "filterPDF"]);
     });
 
 
     Route::middleware('role:ins,ni')->group(function () {
-        //testing 
-        // Route::get('/pdfPreview', [PdfController::class, 'index'])->name('pdfPreview');
-        // Route::get('/pdfDownload', [PdfController::class, 'download'])->name('pdfDownload');
-        // Route::get('/logout', [UserController::class, 'logout'])->name('auth.logout');
-
-        // Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::resource('staff', StaffController::class);
         Route::get('/users', [StaffController::class, 'logs'])->name('showLogs');
 
@@ -88,7 +82,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [UserController::class, 'resetPassword'])
         ->name('password.update');
 
-    Route::post('/login', [LoginController::class,'store'])->name('login.store');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
     Route::resource('/registration', RegistrationController::class);
     Route::get('/login', [LoginController::class, "index"])->name('login');
 });

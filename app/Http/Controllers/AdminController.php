@@ -17,13 +17,13 @@ class AdminController extends Controller
     public function index()
     {
         //
-        $isGenerated = IsUndertimeGenerated::where('generated_date',Carbon::today()->setDate(2025,5,15))
+        $isGenerated = IsUndertimeGenerated::where('generated_date', Carbon::today())
             ->first();
 
         if (!$isGenerated) {
             $isGenerated = new IsUndertimeGenerated;
             $isGenerated->user_id = Auth::id();
-            $isGenerated->generated_date = Carbon::today()->setDate(2025,5,15);
+            $isGenerated->generated_date = Carbon::today();
             $isGenerated->save();
         }
 
@@ -89,7 +89,7 @@ class AdminController extends Controller
 
         if ($isGenerated->isGenerated == 0) {
             $isGenerated->user_id = Auth::id();
-            $isGenerated->generated_date = today();
+            $isGenerated->generated_date = now();
             $isGenerated->isGenerated = 1;
             $isGenerated->save();
 
@@ -113,7 +113,7 @@ class AdminController extends Controller
                     //if user is absent
                     $log = new Log;
                     $log->user_id = $user->id;
-                    $log->log_date = today();
+                    $log->log_date = now();
                     $log->save();
                 }
             }
