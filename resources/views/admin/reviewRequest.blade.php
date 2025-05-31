@@ -3,7 +3,7 @@
     <div class="container" style="margin-top: 2vw;">
         <a href="{{url()->previous()}}" class="btn btn-outline-primary"
             style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
-           Back
+            Back
         </a>
         <br>
         <div class="d-flex flex-column p-4"
@@ -137,7 +137,7 @@
             </div>
         </div>
     </div>
-
+  
     <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ route('approveLetter', ['letter' => $letter]) }}" method="POST">
@@ -150,19 +150,7 @@
 
                     <div class="modal-body">
                         <!-- Action Taken -->
-                        <div class="mb-3">
-                            <label for="action_taken" class="form-label">Action Taken</label>
-                            <select name="action_taken" class="form-control" id="" required>
-                                <option disabled selected>Select one</option>
-                                <option value="SP">Sick Leave with Pay</option>
-                                <option value="VP">Vacation Leave with Pay</option>
-                                <option value="SO">Special Occation Leave</option>
-                                <option value="PD">Personal Day</option>
-                                <option value="FL">Force Leave</option>
-                                <option value="SPL">Special Leave</option>
-                                <option value="OP">Official Purpose/ Other Purpose</option>
-                            </select>
-                        </div>
+                        <input type="hidden" name="action_taken" value="{{$letter->letter_action_taken}}">
 
                         <!-- Reason -->
                         <div class="mb-3">

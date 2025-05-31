@@ -83,7 +83,7 @@
                     </select>
                 </div>
                 <div>
-                    <select  class="form-select" name="year" id="year" style="height: 90%">
+                    <select class="form-select" name="year" id="year" style="height: 90%">
                         <option selected value="{{ now()->year }}">{{ now()->year }}</option>
                         @for ($y = date('Y'); $y >= 2000; $y--)
                             <option value="{{ $y }}">{{ $y }}</option>
@@ -100,7 +100,7 @@
             <th style="width: 120px;"><b>NON INSTRUCTIONAL STAFF</b></th>
             <th style="width: 110px;">Undertime</th>
             <th style="width: 120px;">Inclusive Date of Absence</th>
-            <th>Action Taken (SO,PD,OP,RS)</th>
+            <th>Action Taken</th>
             <th>Cause of Absence</th>
             <th>Service rendered on Saturday</th>
             <th>Has CS Form submitted</th>
@@ -139,12 +139,11 @@
                         }
                     }
                     //updating
-                    foreach ($user->logs->where('status', 'absent') as $log) {
-                        if ($log) {
+                    foreach ($user->logs as $log) {
+                        if ($log->status === "absent") {
 
                             $start = Carbon\Carbon::parse($log->log_date);
                             $end = Carbon\Carbon::parse($log->log_date);
-
                             if ($start->isSameMonth(now())) {
                                 if ($start->equalTo($end)) {
                                     $leaveDates[] = $start->format('j');
@@ -154,7 +153,6 @@
                             }
                         }
                     }
-
                     sort($leaveDates);
                     $formattedLeaveString = implode(';', $leaveDates);
 
@@ -192,7 +190,7 @@
                 @endphp
 
                 <tr>
-                    <td>{{$ctr}}</td>
+                    <td style="padding: 10px;"> {{$ctr}}</td>
                     <td style="text-align: start; padding: 12px;">{{$name}}</td>
                     <td style="text-align: start;">
                         {{$undertime}}
@@ -249,12 +247,11 @@
                         }
                     }
                     //updating
-                    foreach ($user->logs->where('status', 'absent') as $log) {
-                        if ($log) {
+                    foreach ($user->logs as $log) {
+                        if ($log->status === "absent") {
 
                             $start = Carbon\Carbon::parse($log->log_date);
                             $end = Carbon\Carbon::parse($log->log_date);
-
                             if ($start->isSameMonth(now())) {
                                 if ($start->equalTo($end)) {
                                     $leaveDates[] = $start->format('j');
@@ -301,7 +298,7 @@
                 @endphp
 
                 <tr>
-                    <td>{{$ctr}}</td>
+                    <td style="padding: 10px;">{{$ctr}}</td>
                     <td style="text-align: start; padding: 12px;">{{$name}}</td>
                     <td style="text-align: start;">
                         {{$undertime}}

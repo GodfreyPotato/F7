@@ -19,23 +19,36 @@ class PdfController extends Controller
     {
         $preview = 1;
         $ni = User::where('role',  'ni')
-            ->whereHas('logs', function ($query) {
-                $query->where('undertime', '>', 0);
-                $query->orWhere('status', 'absent');
+            ->whereHas('logs', function ($q) {
+                $q->where(function ($u) {
+                    $u->where('undertime', '>', '0')
+                        ->orWhere('status', 'absent');
+                })
+                    ->whereMonth('log_date', today()->month)
+                    ->whereYear('log_date', today()->year);
             })
-            ->whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->with(['logs', 'leaves.letter'])
-            ->get();
-        $ins = User::where('role', 'ins')
-            ->whereHas('logs', function ($query) {
-                $query->where('undertime', '>', 0);
-                $query->orWhere('status', 'absent');
+            ->orWhereHas('leaves.letter', function ($q) {
+                $q->whereMonth('start_date', today()->month)
+                    ->whereYear('start_date', today()->year);
             })
-            ->whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->with(['logs', 'leaves.letter'])
-            ->get();
+            ->with(['logs', 'leaves.letter'])->get();
+
+        $ins = User::where('role',  'ins')
+            ->whereHas('logs', function ($q) {
+                $q->where(function ($u) {
+                    $u->where('undertime', '>', '0')
+                        ->orWhere('status', 'absent');
+                })
+                    ->whereMonth('log_date', today()->month)
+                    ->whereYear('log_date', today()->year);
+            })
+            ->orWhereHas('leaves.letter', function ($q) {
+                $q->whereMonth('start_date', today()->month)
+                    ->whereYear('start_date', today()->year);
+            })
+            ->with(['logs', 'leaves.letter'])->get();
+
+
         return view('pdf.pdf', compact('ni', 'ins', 'preview'));
     }
 
@@ -44,33 +57,43 @@ class PdfController extends Controller
     {
         $preview = 0;
         $ni = User::where('role',  'ni')
-            ->whereHas('logs', function ($query) {
-                $query->where('undertime', '>', 0);
-                $query->orWhere('status', 'absent');
+            ->whereHas('logs', function ($q) {
+                $q->where(function ($u) {
+                    $u->where('undertime', '>', '0')
+                        ->orWhere('status', 'absent');
+                })
+                    ->whereMonth('log_date', today()->month)
+                    ->whereYear('log_date', today()->year);
             })
-            ->whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->with(['logs', 'leaves.letter'])
-            ->get();
-        $ins = User::where('role', 'ins')
-            ->whereHas('logs', function ($query) {
-                $query->where('undertime', '>', 0);
-                $query->orWhere('status', 'absent');
+            ->orWhereHas('leaves.letter', function ($q) {
+                $q->whereMonth('start_date', today()->month)
+                    ->whereYear('start_date', today()->year);
             })
-            ->whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->with(['logs', 'leaves.letter'])
-            ->get();
+            ->with(['logs', 'leaves.letter'])->get();
+
+        $ins = User::where('role',  'ins')
+            ->whereHas('logs', function ($q) {
+                $q->where(function ($u) {
+                    $u->where('undertime', '>', '0')
+                        ->orWhere('status', 'absent');
+                })
+                    ->whereMonth('log_date', today()->month)
+                    ->whereYear('log_date', today()->year);
+            })
+            ->orWhereHas('leaves.letter', function ($q) {
+                $q->whereMonth('start_date', today()->month)
+                    ->whereYear('start_date', today()->year);
+            })
+            ->with(['logs', 'leaves.letter'])->get();
         $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview'));
 
         return $pdf->stream('document.pdf');
     }
 
-    public function filterPDF(?int $month = null, ?int $year = null)
+    public function filterPDF(?int $month, ?int $year)
     {
         $month = $month ?? Carbon::now()->month;
         $year = $year ?? Carbon::now()->year;
-
         function convertMinutesToHoursMins($minutes)
         {
             $hours = floor($minutes / 60);
@@ -95,25 +118,36 @@ class PdfController extends Controller
         // $request->month = $request->query('month', now()->month);
         // $request->year = $request->query('year', now()->year);
 
-        $ni = User::where('role',  'ni')
-            ->whereHas('logs', function ($query) {
-                $query->where('undertime', '>', 0);
-                $query->orWhere('status', 'absent');
-            })
-            ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
-            ->with(['logs', 'leaves.letter'])
-            ->get();
 
-        $ins = User::where('role', 'ins')
-            ->whereHas('logs', function ($query) {
-                $query->where('undertime', '>', 0);
-                $query->orWhere('status', 'absent');
+        $ni = User::where('role',  'ni')
+            ->whereHas('logs', function ($q) use ($month, $year) {
+                $q->where(function ($u) {
+                    $u->where('undertime', '>', '0')
+                        ->orWhere('status', 'absent');
+                })
+                    ->whereMonth('log_date', $month)
+                    ->whereYear('log_date', $year);
             })
-            ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
-            ->with(['logs', 'leaves.letter'])
-            ->get();
+            ->orWhereHas('leaves.letter', function ($q) use ($month, $year) {
+                $q->whereMonth('start_date', $month)
+                    ->whereYear('start_date', $year);
+            })
+            ->with(['logs', 'leaves.letter'])->get();
+
+        $ins = User::where('role',  'ins')
+            ->whereHas('logs', function ($q) use ($month, $year) {
+                $q->where(function ($u) {
+                    $u->where('undertime', '>', '0')
+                        ->orWhere('status', 'absent');
+                })
+                    ->whereMonth('log_date', $month)
+                    ->whereYear('log_date', $year);
+            })
+            ->orWhereHas('leaves.letter', function ($q) use ($month, $year) {
+                $q->whereMonth('start_date', $month)
+                    ->whereYear('start_date', $year);
+            })
+            ->with(['logs', 'leaves.letter'])->get();
 
         $html = "";
 
@@ -135,22 +169,7 @@ class PdfController extends Controller
                     $start = Carbon::parse($leave->letter->start_date);
                     $end = Carbon::parse($leave->letter->end_date);
 
-                    if ($start->isSameMonth(now())) {
-                        if ($start->equalTo($end)) {
-                            $leaveDates[] = $start->format('j');
-                        } else {
-                            $leaveDates[] = $start->format('j') . '–' . $end->format('j');
-                        }
-                    }
-                }
-            } //updating
-            foreach ($user->logs->where('status', 'absent') as $log) {
-                if ($log) {
-
-                    $start = Carbon::parse($log->log_date);
-                    $end = Carbon::parse($log->log_date);
-
-                    if ($start->isSameMonth(now())) {
+                    if ($start->isSameMonth(Carbon::create($year, $month))) {
                         if ($start->equalTo($end)) {
                             $leaveDates[] = $start->format('j');
                         } else {
@@ -160,6 +179,22 @@ class PdfController extends Controller
                 }
             }
 
+            //updating
+            foreach ($user->logs as $log) {
+                if ($log->status == "absent") {
+                    $start = Carbon::parse($log->log_date);
+                    $end = Carbon::parse($log->log_date);
+
+                    if ($start->isSameMonth(Carbon::create($year, $month))) {
+                        if ($start->equalTo($end)) {
+                            $leaveDates[] = $start->format('j');
+                        } else {
+                            $leaveDates[] = $start->format('j') . '–' . $end->format('j');
+                        }
+                    }
+                }
+            }
+            sort($leaveDates);
             $formattedLeaveString = implode(';', $leaveDates);
 
             $actionTaken = [];
@@ -195,13 +230,13 @@ class PdfController extends Controller
 
             $html .=
                 '<tr>
-                <td>' . $ctr . '</td>
+                <td style="padding: 10px;">' . $ctr . '</td>
                 <td style="text-align: start;">' . $name . '</td>
                 <td style="text-align: start;">
                 ' . $undertime . '
                 </td>
                 <td style="text-align: start;">
-                ' . ($formattedLeaveString ? now()->format('M') . " " . $formattedLeaveString . ', ' . now()->year : '') . '
+                ' . ($formattedLeaveString ? Carbon::create($year, $month)->format('M') . " " . $formattedLeaveString . ', ' . Carbon::create($year, $month)->year : '') . '
                 </td>
                 <td>
                     ' . implode('/', $actionTaken) . '
@@ -219,6 +254,7 @@ class PdfController extends Controller
             </tr>';
             $ctr++;
         }
+
 
 
 
@@ -241,22 +277,7 @@ class PdfController extends Controller
                     $start = Carbon::parse($leave->letter->start_date);
                     $end = Carbon::parse($leave->letter->end_date);
 
-                    if ($start->isSameMonth(now())) {
-                        if ($start->equalTo($end)) {
-                            $leaveDates[] = $start->format('j');
-                        } else {
-                            $leaveDates[] = $start->format('j') . '–' . $end->format('j');
-                        }
-                    }
-                }
-            } //updating
-            foreach ($user->logs->where('status', 'absent') as $log) {
-                if ($log) {
-
-                    $start = Carbon::parse($log->log_date);
-                    $end = Carbon::parse($log->log_date);
-
-                    if ($start->isSameMonth(now())) {
+                    if ($start->isSameMonth(Carbon::create($year, $month))) {
                         if ($start->equalTo($end)) {
                             $leaveDates[] = $start->format('j');
                         } else {
@@ -266,6 +287,22 @@ class PdfController extends Controller
                 }
             }
 
+            //updating
+            foreach ($user->logs as $log) {
+                if ($log->status == "absent") {
+                    $start = Carbon::parse($log->log_date);
+                    $end = Carbon::parse($log->log_date);
+
+                    if ($start->isSameMonth(Carbon::create($year, $month))) {
+                        if ($start->equalTo($end)) {
+                            $leaveDates[] = $start->format('j');
+                        } else {
+                            $leaveDates[] = $start->format('j') . '–' . $end->format('j');
+                        }
+                    }
+                }
+            }
+            sort($leaveDates);
             $formattedLeaveString = implode(';', $leaveDates);
 
             $actionTaken = [];
@@ -301,13 +338,13 @@ class PdfController extends Controller
 
             $html .=
                 '<tr>
-                <td>' . $ctr . '</td>
+                <td style="padding: 10px;">' . $ctr . '</td>
                 <td style="text-align: start;">' . $name . '</td>
                 <td style="text-align: start;">
                 ' . $undertime . '
                 </td>
                 <td style="text-align: start;">
-                ' . ($formattedLeaveString ? now()->format('M') . " " . $formattedLeaveString . ', ' . now()->year : '') . '
+                ' . ($formattedLeaveString ? Carbon::create($year, $month)->format('M') . " " . $formattedLeaveString . ', ' . Carbon::create($year, $month)->year : '') . '
                 </td>
                 <td>
                     ' . implode('/', $actionTaken) . '

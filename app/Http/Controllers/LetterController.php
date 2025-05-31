@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Leave;
 use App\Models\Letter;
+use App\Models\Log;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -88,6 +90,7 @@ class LetterController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'cause' => 'required|string',
+            'letter_action_taken' => 'required',
             'file_path' => 'file|mimes:jpeg,png,jpg,pdf,doc,docx'
         ]);
 
@@ -169,6 +172,16 @@ class LetterController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $sd = Carbon::parse($letter->start_date);
+        $ed = Carbon::parse($letter->end_date);
+
+        for ($x = $sd; $x <=  $ed; $x->addDay()) {
+            $log = new Log;
+            $log->user_id = $letter->user_id;
+            $log->log_date = $x;
+            $log->status = "onLeave";
+            $log->save();
+        }
 
         $letter->letter_status = "approved";
 
@@ -181,6 +194,8 @@ class LetterController extends Controller
         $leave->cause_by_admin = $request->cause_by_admin;
         $leave->with_f6 = $letter->file_path;
         $leave->save();
+
+
         return redirect()->route('letter.create');
     }
 }

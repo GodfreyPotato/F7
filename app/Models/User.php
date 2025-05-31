@@ -27,7 +27,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Leave::class);
     }
-
+    public function letters()
+    {
+        return $this->hasMany(Letter::class);
+    }
 
     public function services()
     {

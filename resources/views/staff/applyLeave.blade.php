@@ -3,8 +3,8 @@
 
     <div class="container mt-4">
         <a href="{{route('staff.index')}}" class="btn btn-outline-primary"
-                    style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
-                Back
+            style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+            Back
         </a>
         <br>
         <div class="d-flex">
@@ -22,7 +22,7 @@
                     <p style="color: #878585">Type of Employee:</p>
                     <p>{{Auth::user()->role == "ins" ? "Instructional Staff" : "Non-Instructional Staff"}}</p>
                 </div>
-             
+
             </div>
 
             <!-- right column -->
@@ -38,11 +38,25 @@
                         <div class="mb-3">
                             <label for="cause" class="form-label">Cause of Absence</label>
                             <input type="text" class="form-control" id="cause" name="cause" placeholder="">
-                             @error('cause')
+                            @error('cause')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-
+                        <div class="mb-3">
+                            <label for="action_taken" class="form-label">Action Taken</label>
+                            <select name="letter_action_taken" class="form-control" id="" required>
+                                <option disabled selected>Select one</option>
+                                <option value="SP">Sick Leave with Pay</option>
+                                <option value="VP">Vacation Leave with Pay</option>
+                                <option value="SO">Special Occation Leave</option>
+                                <option value="PD">Personal Day</option>
+                                <option value="FL">Force Leave</option>
+                                <option value="SPL">Special Leave</option>
+                                <option value="OP">Official Purpose/ Other Purpose</option>
+                            </select> @error('action_taken')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                         {{-- Date Range and CS Form --}}
                         <div class="row mb-3">
                             {{-- Date Range --}}

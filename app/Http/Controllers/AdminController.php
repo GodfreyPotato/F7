@@ -101,14 +101,16 @@ class AdminController extends Controller
 
                 //if user timed in umaga or hapon
                 if ($userLog) {
-                    if ($userLog->am_in == null && $userLog->am_out == null) {
-                        $userLog->undertime += 240;
-                    }
+                    if ($userLog->status == "present") {
+                        if ($userLog->am_in == null && $userLog->am_out == null) {
+                            $userLog->undertime += 240;
+                        }
 
-                    if ($userLog->pm_in == null && $userLog->pm_out == null) {
-                        $userLog->undertime += 240;
+                        if ($userLog->pm_in == null && $userLog->pm_out == null) {
+                            $userLog->undertime += 240;
+                        }
+                        $userLog->save();
                     }
-                    $userLog->save();
                 } else {
                     //if user is absent
                     $log = new Log;
