@@ -102,11 +102,12 @@ class LogController extends Controller
 
         $log->am_out = now();
 
-        $startTime = Carbon::parse($log->am_in)->hour <= 8 ? today()->setHour(8) : Carbon::parse($log->am_in);
-        $endTime = Carbon::parse($log->am_out)->hour > 12 ? today()->setHour(12) : Carbon::parse($log->am_out);
+        $startTime = Carbon::parse($log->am_in)->lt(today()->setTime(8, 0)) ? today()->setTime(8, 0) : Carbon::parse($log->am_in);
+        $endTime = Carbon::parse($log->am_out)->gt(today()->setTime(12, 0)) ? today()->setTime(12, 0) : Carbon::parse($log->am_out);
 
         $workedMinutes = $startTime->diffInMinutes($endTime);
-
+        echo $startTime;
+        echo $endTime;
         $log->undertime += max(0, 240 - $workedMinutes);
 
         $log->save();
@@ -140,6 +141,7 @@ class LogController extends Controller
     {
         $log = Log::where('user_id', Auth::id())
             ->where('log_date', today())
+            ->where('pm_in', '!=', null)
             ->first();
 
         //protect the button 
@@ -151,8 +153,8 @@ class LogController extends Controller
         $log->pm_out = now();
 
 
-        $startTime = Carbon::parse($log->pm_in)->hour <= 13 ? today()->setHour(13) : Carbon::parse($log->pm_in);
-        $endTime = Carbon::parse($log->pm_out)->hour > 17 ? today()->setHour(17) : Carbon::parse($log->pm_out);
+        $startTime = Carbon::parse($log->pm_in)->lt(today()->setTime(13, 0)) ? today()->setTime(13, 0) : Carbon::parse($log->pm_in);
+        $endTime = Carbon::parse($log->pm_out)->gt(today()->setTime(17, 0)) ? today()->setTime(17, 0) : Carbon::parse($log->pm_out);
 
         $workedMinutes = $startTime->diffInMinutes($endTime);
 

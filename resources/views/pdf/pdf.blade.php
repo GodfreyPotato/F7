@@ -107,6 +107,7 @@
 
         </tr>
         <tbody style="font-size: 12px;" id="table-body">
+
             @php
                 $ctr = 1;
                 $month = now()->month;
@@ -114,12 +115,12 @@
             @endphp
             @foreach ($ni as $user)
                 @php
-
+                    
                     $name = $user->lastname . ', ' . $user->firstname;
-                    $undertime = convertMinutesToHoursMins($user->logs->whereBetween('created_at', [
-                        now()->setMonth($month)->startOfMonth(),
-                        now()->setMonth($month)->endOfMonth()
-                    ])->sum('undertime'));
+                    $undertime = convertMinutesToHoursMins(
+                        $user->logs->sum('undertime')
+
+                    );
 
 
                     $leaveDates = [];
@@ -224,10 +225,9 @@
                 @php
 
                     $name = $user->lastname . ', ' . $user->firstname;
-                    $undertime = convertMinutesToHoursMins($user->logs->whereBetween('created_at', [
-                        now()->setMonth($month)->startOfMonth(),
-                        now()->setMonth($month)->endOfMonth()
-                    ])->sum('undertime'));
+                    $undertime = convertMinutesToHoursMins(
+                        $user->logs->sum('undertime')
+                    );
 
 
                     $leaveDates = [];

@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/addSaturdayService', [ServiceController::class, "store"])->name('addSaturday');
         Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
         Route::get('/filterPDF/{month?}/{year?}', [PdfController::class, "filterPDF"]);
+        Route::get('/filterDate', [AttendanceController::class, "filterDate"]);
     });
 
 

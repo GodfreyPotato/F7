@@ -33,6 +33,7 @@ class PdfController extends Controller
                             ->whereYear('start_date', today()->year);
                     });
             })
+            ->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
 
@@ -51,6 +52,7 @@ class PdfController extends Controller
                             ->whereYear('start_date', today()->year);
                     });
             })
+            ->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
 
@@ -76,7 +78,7 @@ class PdfController extends Controller
                         $q->whereMonth('start_date', today()->month)
                             ->whereYear('start_date', today()->year);
                     });
-            })
+            })->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
 
@@ -94,7 +96,7 @@ class PdfController extends Controller
                         $q->whereMonth('start_date', today()->month)
                             ->whereYear('start_date', today()->year);
                     });
-            })
+            })->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
         $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview'));
@@ -104,8 +106,7 @@ class PdfController extends Controller
 
     public function filterPDF(?int $month, ?int $year)
     {
-        $month = $month ?? Carbon::now()->month;
-        $year = $year ?? Carbon::now()->year;
+
         function convertMinutesToHoursMins($minutes)
         {
             $hours = floor($minutes / 60);
@@ -145,7 +146,7 @@ class PdfController extends Controller
                         $q->whereMonth('start_date', $month)
                             ->whereYear('start_date', $year);
                     });
-            })
+            })->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
 
@@ -163,7 +164,7 @@ class PdfController extends Controller
                         $q->whereMonth('start_date', $month)
                             ->whereYear('start_date', $year);
                     });
-            })
+            })->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
 
