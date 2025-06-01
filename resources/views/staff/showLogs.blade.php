@@ -114,18 +114,24 @@
                 @endfor
 
                 {{-- Calendar days --}}
+                @php
+                    $ctr = 0;
+                 @endphp
                 @for ($day = 1; $day <= $daysInMonth; $day++)
                     @php
-                        $ctr = 0;
+
                         $date = $start->copy()->addDays($day - 1)->format('Y-m-d');
-                        $log = $attendance[$day - 1]->log_date == $date ? $attendance[$ctr] : null;
+                        $log = $attendance[$ctr]->log_date == $date ? $attendance[$ctr] : null;
+
 
                         $statusClass = '';
-                        $hoursWorked = null;
 
                         if ($log) {
                             $statusClass = $log->status;
-                            $ctr++;
+
+                            if (count($attendance) - 1 > $ctr) {
+                                $ctr++;
+                            }
 
                         }
                     @endphp
