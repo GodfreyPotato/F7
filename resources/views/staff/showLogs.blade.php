@@ -141,10 +141,12 @@
                         <span>{{ ucfirst($statusClass) }}</span><br>
 
                         @if($log && $statusClass === 'present')
-                            <small>AM In: {{ Carbon\Carbon::parse($log->am_in)->format('g:i A') ?? 'N/A' }}</small><br>
-                            <small>AM Out: {{ Carbon\Carbon::parse($log->am_out)->format('g:i A') ?? 'N/A' }}</small><br>
-                            <small>PM In: {{ Carbon\Carbon::parse($log->pm_in)->format('g:i A') ?? 'N/A' }}</small><br>
-                            <small>PM Out: {{ Carbon\Carbon::parse($log->pm_out)->format('g:i A') ?? 'N/A' }}</small><br>
+                            <small>AM In: {{$log->am_in ? Carbon\Carbon::parse($log->am_in)->format('g:i A') : 'N/A' }}</small><br>
+                            <small>AM Out:
+                                {{$log->am_out ? Carbon\Carbon::parse($log->am_out)->format('g:i A') : 'N/A' }}</small><br>
+                            <small>PM In: {{$log->pm_in ? Carbon\Carbon::parse($log->pm_in)->format('g:i A') : 'N/A' }}</small><br>
+                            <small>PM Out:
+                                {{ $log->out ? Carbon\Carbon::parse($log->pm_in)->format('g:i A') : 'N/A'  }}</small><br>
                             <small>Undertime: {{convertMinutesToHoursMins($log->undertime)}}</small>
 
 
