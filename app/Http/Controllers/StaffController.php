@@ -20,18 +20,18 @@ class StaffController extends Controller
         //
         $letters = Letter::where('user_id', Auth::id())
             ->orderBy('updated_at', 'desc')
-            ->where('letter_status','pending')
+            ->where('letter_status', 'pending')
             ->paginate(4);
         $log = Log::where('user_id', Auth::id())
             ->whereDay('log_date', now())
             ->orderBy('updated_at', 'desc')
             ->first();
-          $reviewedLetters = Letter::where('user_id', Auth::id())
+        $reviewedLetters = Letter::where('user_id', Auth::id())
             ->orderBy('updated_at', 'desc')
-            ->where('letter_status','!=','pending')
+            ->where('letter_status', '!=', 'pending')
             ->get();
-        
-        return view('staff.home', compact('log', 'letters','reviewedLetters'));
+
+        return view('staff.home', compact('log', 'letters', 'reviewedLetters'));
     }
 
 
@@ -72,13 +72,13 @@ class StaffController extends Controller
     public function update(Request $request, String $id)
     {
         //
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'firstname' => 'required',
-            'middlename'=>'required',
-            'lastname'=>'required',
+            'middlename' => 'required',
+            'lastname' => 'required',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 

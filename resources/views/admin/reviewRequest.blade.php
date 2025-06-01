@@ -36,6 +36,11 @@
                         <br>
                         <span style="font-size: 18px;" class="fw-bold">{{$letter->cause}}</span>
                     </div>
+                    <div>
+                        <span style="color: #878585; font-size: 16px;" class="fw-semibold">ACTION TAKEN</span>
+                        <br>
+                        <span style="font-size: 18px;" class="fw-bold">{{$letter->letter_action_taken}}</span>
+                    </div>
                     <div class="d-flex flex-column justify-content-end align-items-end">
                         <span style="color: #878585; font-size: 16px;" class="fw-semibold">REQUEST SUBMITTED</span>
                         <span style="font-size: 18px;"
@@ -137,7 +142,7 @@
             </div>
         </div>
     </div>
-  
+
     <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ route('approveLetter', ['letter' => $letter]) }}" method="POST">

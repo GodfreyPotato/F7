@@ -88,7 +88,11 @@
             </a>
             <br>
 
-            <h2 class="mb-4">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} - {{ now()->format('F Y') }}</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-4">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} - {{ now()->format('F Y') }}
+                </h2>
+                <h5 id="clock"></h5>
+            </div>
 
             @php
                 $start = \Carbon\Carbon::now()->startOfMonth();
@@ -158,7 +162,14 @@
 
         </div>
     </div>
-
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("clock").textContent = now.toLocaleString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime(); 
+    </script>
 @endsection
 
 
