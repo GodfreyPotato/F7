@@ -19,34 +19,40 @@ class PdfController extends Controller
     {
         $preview = 1;
         $ni = User::where('role',  'ni')
-            ->whereHas('logs', function ($q) {
-                $q->where(function ($u) {
-                    $u->where('undertime', '>', '0')
-                        ->orWhere('status', 'absent');
+            ->where(function ($query) {
+                $query->whereHas('logs', function ($q) {
+                    $q->where(function ($u) {
+                        $u->where('undertime', '>', '0')
+                            ->orWhere('status', 'absent');
+                    })
+                        ->whereMonth('log_date', today()->month)
+                        ->whereYear('log_date', today()->year);
                 })
-                    ->whereMonth('log_date', today()->month)
-                    ->whereYear('log_date', today()->year);
+                    ->orWhereHas('leaves.letter', function ($q) {
+                        $q->whereMonth('start_date', today()->month)
+                            ->whereYear('start_date', today()->year);
+                    });
             })
-            ->orWhereHas('leaves.letter', function ($q) {
-                $q->whereMonth('start_date', today()->month)
-                    ->whereYear('start_date', today()->year);
-            })
-            ->with(['logs', 'leaves.letter'])->get();
+            ->with(['logs', 'leaves.letter'])
+            ->get();
 
         $ins = User::where('role',  'ins')
-            ->whereHas('logs', function ($q) {
-                $q->where(function ($u) {
-                    $u->where('undertime', '>', '0')
-                        ->orWhere('status', 'absent');
+            ->where(function ($query) {
+                $query->whereHas('logs', function ($q) {
+                    $q->where(function ($u) {
+                        $u->where('undertime', '>', '0')
+                            ->orWhere('status', 'absent');
+                    })
+                        ->whereMonth('log_date', today()->month)
+                        ->whereYear('log_date', today()->year);
                 })
-                    ->whereMonth('log_date', today()->month)
-                    ->whereYear('log_date', today()->year);
+                    ->orWhereHas('leaves.letter', function ($q) {
+                        $q->whereMonth('start_date', today()->month)
+                            ->whereYear('start_date', today()->year);
+                    });
             })
-            ->orWhereHas('leaves.letter', function ($q) {
-                $q->whereMonth('start_date', today()->month)
-                    ->whereYear('start_date', today()->year);
-            })
-            ->with(['logs', 'leaves.letter'])->get();
+            ->with(['logs', 'leaves.letter'])
+            ->get();
 
 
         return view('pdf.pdf', compact('ni', 'ins', 'preview'));
@@ -57,34 +63,40 @@ class PdfController extends Controller
     {
         $preview = 0;
         $ni = User::where('role',  'ni')
-            ->whereHas('logs', function ($q) {
-                $q->where(function ($u) {
-                    $u->where('undertime', '>', '0')
-                        ->orWhere('status', 'absent');
+            ->where(function ($query) {
+                $query->whereHas('logs', function ($q) {
+                    $q->where(function ($u) {
+                        $u->where('undertime', '>', '0')
+                            ->orWhere('status', 'absent');
+                    })
+                        ->whereMonth('log_date', today()->month)
+                        ->whereYear('log_date', today()->year);
                 })
-                    ->whereMonth('log_date', today()->month)
-                    ->whereYear('log_date', today()->year);
+                    ->orWhereHas('leaves.letter', function ($q) {
+                        $q->whereMonth('start_date', today()->month)
+                            ->whereYear('start_date', today()->year);
+                    });
             })
-            ->orWhereHas('leaves.letter', function ($q) {
-                $q->whereMonth('start_date', today()->month)
-                    ->whereYear('start_date', today()->year);
-            })
-            ->with(['logs', 'leaves.letter'])->get();
+            ->with(['logs', 'leaves.letter'])
+            ->get();
 
         $ins = User::where('role',  'ins')
-            ->whereHas('logs', function ($q) {
-                $q->where(function ($u) {
-                    $u->where('undertime', '>', '0')
-                        ->orWhere('status', 'absent');
+            ->where(function ($query) {
+                $query->whereHas('logs', function ($q) {
+                    $q->where(function ($u) {
+                        $u->where('undertime', '>', '0')
+                            ->orWhere('status', 'absent');
+                    })
+                        ->whereMonth('log_date', today()->month)
+                        ->whereYear('log_date', today()->year);
                 })
-                    ->whereMonth('log_date', today()->month)
-                    ->whereYear('log_date', today()->year);
+                    ->orWhereHas('leaves.letter', function ($q) {
+                        $q->whereMonth('start_date', today()->month)
+                            ->whereYear('start_date', today()->year);
+                    });
             })
-            ->orWhereHas('leaves.letter', function ($q) {
-                $q->whereMonth('start_date', today()->month)
-                    ->whereYear('start_date', today()->year);
-            })
-            ->with(['logs', 'leaves.letter'])->get();
+            ->with(['logs', 'leaves.letter'])
+            ->get();
         $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview'));
 
         return $pdf->stream('document.pdf');
@@ -120,34 +132,40 @@ class PdfController extends Controller
 
 
         $ni = User::where('role',  'ni')
-            ->whereHas('logs', function ($q) use ($month, $year) {
-                $q->where(function ($u) {
-                    $u->where('undertime', '>', '0')
-                        ->orWhere('status', 'absent');
+            ->where(function ($query) use ($month, $year) {
+                $query->whereHas('logs', function ($q) use ($month, $year) {
+                    $q->where(function ($u) {
+                        $u->where('undertime', '>', '0')
+                            ->orWhere('status', 'absent');
+                    })
+                        ->whereMonth('log_date', $month)
+                        ->whereYear('log_date', $year);
                 })
-                    ->whereMonth('log_date', $month)
-                    ->whereYear('log_date', $year);
+                    ->orWhereHas('leaves.letter', function ($q) use ($month, $year) {
+                        $q->whereMonth('start_date', $month)
+                            ->whereYear('start_date', $year);
+                    });
             })
-            ->orWhereHas('leaves.letter', function ($q) use ($month, $year) {
-                $q->whereMonth('start_date', $month)
-                    ->whereYear('start_date', $year);
-            })
-            ->with(['logs', 'leaves.letter'])->get();
+            ->with(['logs', 'leaves.letter'])
+            ->get();
 
         $ins = User::where('role',  'ins')
-            ->whereHas('logs', function ($q) use ($month, $year) {
-                $q->where(function ($u) {
-                    $u->where('undertime', '>', '0')
-                        ->orWhere('status', 'absent');
+            ->where(function ($query) use ($month, $year) {
+                $query->whereHas('logs', function ($q) use ($month, $year) {
+                    $q->where(function ($u) {
+                        $u->where('undertime', '>', '0')
+                            ->orWhere('status', 'absent');
+                    })
+                        ->whereMonth('log_date', $month)
+                        ->whereYear('log_date', $year);
                 })
-                    ->whereMonth('log_date', $month)
-                    ->whereYear('log_date', $year);
+                    ->orWhereHas('leaves.letter', function ($q) use ($month, $year) {
+                        $q->whereMonth('start_date', $month)
+                            ->whereYear('start_date', $year);
+                    });
             })
-            ->orWhereHas('leaves.letter', function ($q) use ($month, $year) {
-                $q->whereMonth('start_date', $month)
-                    ->whereYear('start_date', $year);
-            })
-            ->with(['logs', 'leaves.letter'])->get();
+            ->with(['logs', 'leaves.letter'])
+            ->get();
 
         $html = "";
 

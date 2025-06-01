@@ -1,9 +1,29 @@
 @extends('master')
 @section('content')
-@php
-$user = Auth::user();
-@endphp
-<style>
+
+    @php
+
+        function convertMinutesToHoursMins($minutes)
+        {
+            $hours = floor($minutes / 60);
+            $mins = $minutes % 60;
+
+            $result = '';
+            if ($hours > 0) {
+                $result .= $hours . ' hr' . ($hours > 1 ? 's' : '');
+            }
+
+            if ($mins > 0) {
+                if ($result != '') {
+                    $result .= ' and ';
+                }
+                $result .= $mins . ' min' . ($mins > 1 ? 's' : '');
+            }
+
+            return $result;
+        }
+    @endphp
+    <style>
         .sidebar {
             height: 100vh;
             overflow-y: auto;
@@ -53,102 +73,86 @@ $user = Auth::user();
             font-weight: bold;
         }
 
-        .on_leave {
+        .onLeave {
             background-color: #f0f0f0;
             color: #555;
             font-weight: bold;
         }
     </style>
-        <!-- Calendar -->
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="col-md-9 col-lg-10 p-4">
-                <a href="{{url()->previous()}}" class="btn btn-outline-primary"
-                    style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
+    <!-- Calendar -->
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="col-md-9 col-lg-10 p-4">
+            <a href="{{url()->previous()}}" class="btn btn-outline-primary"
+                style="width: 10vw; height: 2.5vw; display: flex; align-items: center; justify-content: center;">
                 Back
-                </a>
-                <br>
-                @if(isset($user))
-                    <h2 class="mb-4">{{ $user->firstname }} {{ $user->lastname }} - {{ now()->format('F Y') }}</h2>
-                    
+            </a>
+            <br>
+
+            <h2 class="mb-4">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} - {{ now()->format('F Y') }}</h2>
+
+            @php
+                $start = \Carbon\Carbon::now()->startOfMonth();
+                $end = \Carbon\Carbon::now()->endOfMonth();
+                $daysInMonth = $start->daysInMonth;
+                $firstDayOfWeek = $start->dayOfWeek;
+            @endphp
+
+            <div class="d-grid" style="grid-template-columns: repeat(7, 1fr); font-weight: bold; text-align: center;">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+
+            <div class="calendar-grid mt-2">
+                {{-- Empty boxes before first day --}}
+                @for($i = 0; $i < $firstDayOfWeek; $i++)
+                    <div></div>
+                @endfor
+
+                {{-- Calendar days --}}
+                @for ($day = 1; $day <= $daysInMonth; $day++)
                     @php
-                        $start = \Carbon\Carbon::now()->startOfMonth();
-                        $end = \Carbon\Carbon::now()->endOfMonth();
-                        $daysInMonth = $start->daysInMonth;
-                        $firstDayOfWeek = $start->dayOfWeek;
+                        $date = $start->copy()->addDays($day - 1)->format('Y-m-d');
+                        $log = $attendance[$day - 1] ?? null;
+
+                        $statusClass = '';
+                        $hoursWorked = null;
+
+                        if ($log) {
+                            $statusClass = $log->status;
+                        }
                     @endphp
 
-                    <div class="d-grid" style="grid-template-columns: repeat(7, 1fr); font-weight: bold; text-align: center;">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
+                    <div class="day-box {{ $statusClass }}">
+                        <strong>{{ $day }}</strong><br>
+                        <span>{{ ucfirst($statusClass) }}</span><br>
+
+                        @if($log && $statusClass === 'present')
+                            <small>AM In: {{ Carbon\Carbon::parse($log->am_in)->format('g:i A') ?? 'N/A' }}</small><br>
+                            <small>AM Out: {{ Carbon\Carbon::parse($log->am_out)->format('g:i A') ?? 'N/A' }}</small><br>
+                            <small>PM In: {{ Carbon\Carbon::parse($log->pm_in)->format('g:i A') ?? 'N/A' }}</small><br>
+                            <small>PM Out: {{ Carbon\Carbon::parse($log->pm_out)->format('g:i A') ?? 'N/A' }}</small><br>
+                            <small>Undertime: {{$log->undertime}}</small>
+
+
+                        @endif
                     </div>
-
-                    <div class="calendar-grid mt-2">
-                        {{-- Empty boxes before first day --}}
-                        @for($i = 0; $i < $firstDayOfWeek; $i++)
-                            <div></div>
-                        @endfor
-
-                        {{-- Calendar days --}}
-                        @for ($day = 1; $day <= $daysInMonth; $day++)
-                            @php
-                                $date = $start->copy()->addDays($day - 1)->format('Y-m-d');
-                                $log = $attendance[$date] ?? null;
-                                $statusClass = $log->status ?? 'absent';
-
-                                $hoursWorked = null;
-                                if ($log && $log->time_in && $log->time_out) {
-                                    $timeIn = \Carbon\Carbon::parse($log->time_in);
-                                    $timeOut = \Carbon\Carbon::parse($log->time_out);
-                                    $hoursWorked = $timeOut->diffInMinutes($timeIn) / 60;
-                                }
-                            @endphp
-
-                            <div class="day-box {{ $statusClass }}">
-                                <strong>{{ $day }}</strong><br>
-                                <span>{{ ucfirst($statusClass) }}</span><br>
-
-                                @if($log && $statusClass === 'present')
-                                    <small>In: {{ $log->time_in ?? 'N/A' }}</small><br>
-                                    <small>Out: {{ $log->time_out ?? 'N/A' }}</small><br>
-                                    @if($hoursWorked)
-                                        <small>Hours: {{ number_format($hoursWorked, 2) }}</small>
-                                    @endif
-                                @endif
-                            </div>
-                        @endfor
-                    </div>
-                @else
-                <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                    <h4 class="text-muted">Please select an user to view attendance.</h4>
-                </div>
-                @endif
+                @endfor
             </div>
+
+
         </div>
+    </div>
 
 @endsection
 
-@push('scripts')
-<script>
-        // Live search
-        document.getElementById("searchInput").addEventListener("input", function () {
-            let filter = this.value.toLowerCase();
-            let items = document.querySelectorAll("#employeeList li");
-
-            items.forEach(function (item) {
-                let name = item.textContent.toLowerCase();
-                item.style.display = name.includes(filter) ? "" : "none";
-            });
-        });
-    </script>
-    @endpush
-  
-    <!-- Navbar -->
 
 
-    <!-- Main Content -->
- 
+<!-- Navbar -->
+
+
+<!-- Main Content -->

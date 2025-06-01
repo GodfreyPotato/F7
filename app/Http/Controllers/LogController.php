@@ -21,8 +21,11 @@ class LogController extends Controller
 
     public function logs()
     {
-        $users = User::where('role', '!=', 'admin')->get();
-        return view('staff.showLogs', compact('users'));
+        $attendance = Log::where('user_id', Auth::id())
+            ->whereMonth('log_date', now()->month)
+            ->whereYear('log_date', now()->year)
+            ->get();
+        return view('staff.showLogs', compact('attendance'));
     }
 
     /**

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Attendance;
+use App\Models\Log;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -18,21 +20,24 @@ class AttendanceController extends Controller
     public function show(User $user)
     {
         $employees = User::where('role', 'employee')->get();
-        
+
         $currentMonth = now()->month;
         $currentYear = now()->year;
 
         $attendance = Attendance::where('user_id', $user->id)
-        ->whereMonth('date', $currentMonth)
-        ->whereYear('date', $currentYear)
-        ->get()
-        ->keyBy('date');
+            ->whereMonth('date', $currentMonth)
+            ->whereYear('date', $currentYear)
+            ->get()
+            ->keyBy('date');
 
-    return view('attendance.employee_attendance', compact('employees', 'user', 'attendance'));
+        return view('attendance.employee_attendance', compact('employees', 'user', 'attendance'));
     }
 
 
-    public function attendanceLogs(){
-        return view('admin.attendanceLogs');
+    public function attendanceLogs()
+    {
+
+
+        return view('admin.attendanceLogs',);
     }
 }
