@@ -116,14 +116,17 @@
                 {{-- Calendar days --}}
                 @for ($day = 1; $day <= $daysInMonth; $day++)
                     @php
+                        $ctr = 0;
                         $date = $start->copy()->addDays($day - 1)->format('Y-m-d');
-                        $log = $attendance[$day - 1] ?? null;
+                        $log = $attendance[$day - 1]->log_date == $date ? $attendance[$ctr] : null;
 
                         $statusClass = '';
                         $hoursWorked = null;
 
                         if ($log) {
                             $statusClass = $log->status;
+                            $ctr++;
+
                         }
                     @endphp
 
@@ -136,7 +139,7 @@
                             <small>AM Out: {{ Carbon\Carbon::parse($log->am_out)->format('g:i A') ?? 'N/A' }}</small><br>
                             <small>PM In: {{ Carbon\Carbon::parse($log->pm_in)->format('g:i A') ?? 'N/A' }}</small><br>
                             <small>PM Out: {{ Carbon\Carbon::parse($log->pm_out)->format('g:i A') ?? 'N/A' }}</small><br>
-                            <small>Undertime: {{$log->undertime}}</small>
+                            <small>Undertime: {{convertMinutesToHoursMins($log->undertime)}}</small>
 
 
                         @endif
