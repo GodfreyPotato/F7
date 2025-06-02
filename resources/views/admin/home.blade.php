@@ -55,7 +55,7 @@
                                     style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;">
                                     <img src="{{ asset('images/calendar-check.png') }}" style="height: 45px; width: 45px;">
                                 </div>
-                                <h5 class="card-title" style="color: white;">Leave Requests</h5>
+                                <h5 class="card-title" style="color: white;">Leave Applications</h5>
                                 <p class="card-text" style="color: white; font-size: 14px;">Pending approval</p>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Leave Requests</p>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Leave Application</p>
                                 <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalPending}}</h2>
                             </div>
                             <div
@@ -145,7 +145,7 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Accepted Leave Request</p>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Accepted Leave Application</p>
                                 <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalAccepted}}</h2>
                             </div>
                             <div

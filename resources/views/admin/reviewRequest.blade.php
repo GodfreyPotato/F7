@@ -39,7 +39,39 @@
                     <div>
                         <span style="color: #878585; font-size: 16px;" class="fw-semibold">ACTION TAKEN</span>
                         <br>
-                        <span style="font-size: 18px;" class="fw-bold">{{$letter->letter_action_taken}}</span>
+                         @php
+                            $actionTaken="";
+                            $code =  $letter->letter_action_taken;    
+                            switch($code){
+                                case 'SP':
+                                    $actionTaken = "Sick Leave with Pay";
+                                    break;
+                                case 'VP':
+                                    $actionTaken = "Vacation Leave with Pay";
+                                    break;
+                                case 'SO':
+                                    $actionTaken = "Special Occation Leave";
+                                    break;
+                                case 'PD':
+                                    $actionTaken = "Personal Day";
+                                    break;
+                                case 'FL':
+                                    $actionTaken = "Force Leave";
+                                    break;
+                                case 'SPL':
+                                    $actionTaken = "Special Leave";
+                                    break;
+                                case 'OP':
+                                    $actionTaken = "Official Purpose/ Other Purpose";
+                                    break;
+                                default:
+                                    $actionTaken = "Unknown";
+                                    break;
+                            }
+                            @endphp
+                        <span style="font-size: 18px;" class="fw-bold">
+                           
+                            {{$actionTaken}}</span>
                     </div>
                     <div class="d-flex flex-column justify-content-end align-items-end">
                         <span style="color: #878585; font-size: 16px;" class="fw-semibold">REQUEST SUBMITTED</span>
@@ -155,8 +187,21 @@
 
                     <div class="modal-body">
                         <!-- Action Taken -->
-                        <input type="hidden" name="action_taken" value="{{$letter->letter_action_taken}}">
-
+                    <div>
+                        <label>Leave Type</label>
+                        <select name="action_taken" class="form-control" id="" required>
+                                <option disabled selected>Select one</option>
+                                <option value="SP">Sick Leave with Pay</option>
+                                <option value="VP">Vacation Leave with Pay</option>
+                                <option value="SO">Special Occation Leave</option>
+                                <option value="PD">Personal Day</option>
+                                <option value="FL">Force Leave</option>
+                                <option value="SPL">Special Leave</option>
+                                <option value="OP">Official Purpose/ Other Purpose</option>
+                            </select> @error('action_taken')  
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                    </div>  
                         <!-- Reason -->
                         <div class="mb-3">
                             <label for="reason" class="form-label">Reason</label>

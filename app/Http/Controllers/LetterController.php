@@ -103,6 +103,7 @@ class LetterController extends Controller
         $letter->start_date = $request->start_date;
         $letter->end_date = $request->end_date;
         $letter->cause = $request->cause;
+        $letter->letter_action_taken = $request->letter_action_taken;
 
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
