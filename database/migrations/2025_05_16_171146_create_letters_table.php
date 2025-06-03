@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('letter_status', ['pending', 'approved', 'rejected']);
             $table->date('start_date');
-            $table->enum('letter_action_taken', ['SP', 'VP', 'SO', 'PD', 'OP', 'FL', 'SPL']);
+            $table->enum('letter_action_taken', ['SP', 'VP', 'SO', 'PD', 'OP', 'FL', 'SPL', 'SOP', 'VOP', 'SLOP']);
             $table->date('end_date');
             $table->string('cause');
             $table->string('file_path')->nullable();

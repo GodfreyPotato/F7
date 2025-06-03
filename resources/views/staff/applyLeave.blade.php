@@ -45,14 +45,20 @@
                         <div class="mb-3">
                             <label for="action_taken" class="form-label">Action Taken</label>
                             <select name="letter_action_taken" class="form-control" id="" required>
-                                <option disabled selected>Select one</option>
+                               <option disabled selected>Select one</option>
+
+
+                               <option value="FL">Force Leave</option>
+                               <option value="OP">Official Purpose/ Other Purpose</option>
+                               <option value="PD">Personal Day</option>
                                 <option value="SP">Sick Leave with Pay</option>
+                               <option value="SLOP">Sick Leave w/o Pay</option>
+                               <option value="SPL">Special Leave</option>
+                               {{-- <option value="SOP">Special Leave w/o Pay</option> --}}
+                               <option value="SO">Special Occation Leave</option>
                                 <option value="VP">Vacation Leave with Pay</option>
-                                <option value="SO">Special Occation Leave</option>
-                                <option value="PD">Personal Day</option>
-                                <option value="FL">Force Leave</option>
-                                <option value="SPL">Special Leave</option>
-                                <option value="OP">Official Purpose/ Other Purpose</option>
+                               <option value="VOP">Vacation w/o Pay</option>
+
                             </select> @error('action_taken')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror

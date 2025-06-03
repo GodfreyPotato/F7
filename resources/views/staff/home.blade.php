@@ -224,7 +224,7 @@
                             </span>
 
                             <span style="font-size: 14px; color: #64748B;">
-                                Accepted on: {{ $letter->updated_at->format('M d, Y') }}
+                                Reviewed on: {{ $letter->updated_at->format('M d, Y') }}
                             </span>
                         </div>
                     @endforeach

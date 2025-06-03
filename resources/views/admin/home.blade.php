@@ -145,7 +145,7 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Accepted Leave Application</p>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Reviewed Leave Application</p>
                                 <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalAccepted}}</h2>
                             </div>
                             <div

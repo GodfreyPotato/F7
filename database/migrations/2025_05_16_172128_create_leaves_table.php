@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('letter_id')->constrained('letters')->onDelete('cascade');
-            $table->enum('action_taken', ['SP', 'VP', 'SO', 'PD', 'OP', 'FL', 'SPL']);
+            $table->enum('action_taken', ['SP', 'VP', 'SO', 'PD', 'OP', 'FL', 'SPL', 'SOP', 'VOP', 'SLOP']);
             $table->string('cause_by_admin');
             $table->string('with_f6')->nullable();
             $table->timestamps();
