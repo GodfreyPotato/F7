@@ -18,24 +18,12 @@ class StaffController extends Controller
     public function index()
     {
         //
-        $letters = Letter::where('user_id', Auth::id())
-            ->orderBy('updated_at', 'desc')
-            ->where('letter_status', 'pending')
-            ->paginate(4);
-        $log = Log::where('user_id', Auth::id())
-            ->whereDay('log_date', now())
-            ->orderBy('updated_at', 'desc')
-            ->first();
-        $reviewedLetters = Letter::where('user_id', Auth::id())
-            ->orderBy('updated_at', 'desc')
-            ->where('letter_status', '!=', 'pending')
-            ->get();
+        $letters = Letter::where('user_id', Auth::id())->orderBy('updated_at', 'desc')->where('letter_status', 'pending')->paginate(4);
+        $log = Log::where('user_id', Auth::id())->whereDay('log_date', now())->orderBy('updated_at', 'desc')->first();
+        $reviewedLetters = Letter::where('user_id', Auth::id())->orderBy('updated_at', 'desc')->where('letter_status', '!=', 'pending')->get();
 
         return view('staff.home', compact('log', 'letters', 'reviewedLetters'));
     }
-
-
-
 
     public function create()
     {
@@ -69,13 +57,13 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, string $id)
     {
-        //
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'middlename' => 'required',
             'lastname' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -85,9 +73,20 @@ class StaffController extends Controller
         $user = User::find($id);
 
         $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
         $user->middlename = $request->middlename;
+        $user->lastname = $request->lastname;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/profile_images');
+            $image->move($destinationPath, $filename);
+
+            $user->image_path = 'uploads/profile_images/' . $filename;
+        }
+
         $user->save();
+
         return redirect()->route('staff.index');
     }
 
