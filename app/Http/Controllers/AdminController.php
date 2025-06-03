@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -57,9 +58,25 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editStaff(Request $request, User $user)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'firstname' =>'required',
+            'middlename'=>'required',
+            'lastname'=>'required'
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+        $user->firstname = $request->firstname;
+        
+        $user->middlename = $request->middlename;
+        
+        $user->lastname = $request->lastname;
+        $user->save();
+        return redirect()->route('staffListing');
     }
 
     /**

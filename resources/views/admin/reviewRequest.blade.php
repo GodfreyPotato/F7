@@ -9,7 +9,7 @@
         <div class="d-flex flex-column p-4"
             style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
             <div class="d-flex justify-content-between">
-                <span style="font-size: 24px;" class="fw-bold">Review Requests</span>
+                <span style="font-size: 24px;" class="fw-bold">Review Application</span>
                 <div class="d-flex">
                     <a href="" class="btn d-flex justify-content-center me-3"
                         style="background-color: #059669; color: white; width: 8vw;" data-bs-toggle="modal"
@@ -181,7 +181,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="actionModalLabel">Approve Leave Request</h5>
+                        <h5 class="modal-title" id="actionModalLabel">Approve Leave Application</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 

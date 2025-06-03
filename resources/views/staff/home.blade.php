@@ -209,7 +209,7 @@
             <!--Notifications -->
             <div class="p-4 h-50"
                 style="width: 40%; box-shadow: 0px 0px 4.2px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-                <h5 class="fw-bold mb-3 mt-2">Reviewed Leave Requests</h5>
+                <h5 class="fw-bold mb-3 mt-2">Reviewed Leave Application</h5>
                 <hr>
                 <div style="height: 300px; overflow-y: auto;" class="d-flex flex-column gap-2">
                     {{-- for loop --}}
@@ -235,7 +235,7 @@
             <div class="p-4 w-100"
                 style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
                 <div class="d-flex justify-content-between">
-                    <span style="font-size: 20px;" class="fw-bold">Pending Leave Requests</span>
+                    <span style="font-size: 20px;" class="fw-bold">Pending Leave Application</span>
                     <a href="{{route('letter.index')}}" class="btn d-flex justify-content-center"
                         style="background-color: #1D4ED8; color: white;">
                         <img src="{{ asset('images/plus.png') }}" style="width: 23px; height: 23px; margin-right: 8px;">

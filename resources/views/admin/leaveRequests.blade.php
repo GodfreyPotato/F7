@@ -19,7 +19,7 @@
             {{-- LEAVE REQUESTS --}}
             <div class="p-4 mt-4"
                 style="box-shadow: 0px 0px 4.2px 0px rgba(0, 0, 0, 0.25); background-color: white; border-radius: 8px;">
-                <span style="font-size: 24px;" class="fw-bold">Leave Requests</span>
+                <span style="font-size: 24px;" class="fw-bold">Leave Applications</span>
                 <hr>
                 <div id="letters">
 

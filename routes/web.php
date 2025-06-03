@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
         Route::get('/filterPDF/{month?}/{year?}', [PdfController::class, "filterPDF"]);
         Route::get('/filterDate', [AttendanceController::class, "filterDate"]);
+        Route::post('/editStaff/{user}',[AdminController::class, "editStaff"])->name('editStaff');
     });
 
 

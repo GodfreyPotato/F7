@@ -106,12 +106,16 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <form action="" method="POST">
+                        <form action="{{ route('editStaff', ['user'=>$user]) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="firstname{{ $user->id }}" class="form-label">First Name</label>
                                     <input type="text" name="firstname" id="firstname{{ $user->id }}" class="form-control" value="{{ $user->firstname }}" required>
+                                </div>
+                                  <div class="mb-3">
+                                    <label for="firstname{{ $user->id }}" class="form-label">Middle Name</label>
+                                    <input type="text" name="middlename" id="firstname{{ $user->id }}" class="form-control" value="{{ $user->middlename }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="lastname{{ $user->id }}" class="form-label">Last Name</label>
@@ -119,19 +123,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email{{ $user->id }}" class="form-label">Email</label>
-                                    <input type="email" name="email" id="email{{ $user->id }}" class="form-control" value="{{ $user->email }}" required>
+                                    <input type="email" name="email" readonly id="email{{ $user->id }}" class="form-control" value="{{ $user->email }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="department{{ $user->id }}" class="form-label">Department</label>
-                                    <input type="text" name="department" id="department{{ $user->id }}" class="form-control" value="{{ $user->department }}">
+                                    <input type="text" readonly name="department" id="department{{ $user->id }}" class="form-control" value="{{ $user->department }}">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="role{{ $user->id }}" class="form-label">Type</label>
-                                    <select name="role" id="role{{ $user->id }}" class="form-select">
-                                        <option value="ins" {{ $user->role == 'ins' ? 'selected' : '' }}>Instructional</option>
-                                        <option value="non" {{ $user->role == 'non' ? 'selected' : '' }}>Non-Instructional</option>
-                                    </select>
-                                </div>
+                               
                             </div>
 
                             <div class="modal-footer d-flex j">
