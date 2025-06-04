@@ -11,15 +11,15 @@
                         <h1 style="margin-bottom: 0;">Welcome Back, {{ auth()->user()->firstname }}!</h1>
                         <p style="margin-bottom: 0;">Here's what's happening in your HR system today.</p>
                         {{-- @if ($isGenerated->isGenerated == 0)
-                            <a href="{{route('generateAllUndertime')}}"> <span class="btn p-2 mt-3 text-white"
-                                    style="background-color: #0d6efd;">Generate All
-                                    Undertime Today</span></a>
+                        <a href="{{route('generateAllUndertime')}}"> <span class="btn p-2 mt-3 text-white"
+                                style="background-color: #0d6efd;">Generate All
+                                Undertime Today</span></a>
                         @else --}}
-                            <span class="rounded p-2 mt-3 text-white"
-                                style="text-align: center; background-color: #0d6efd; ">Work Today is
-                                Done!
-                                #Winning!</span>
-                        @endif
+                        {{-- <span class="rounded p-2 mt-3 text-white"
+                            style="text-align: center; background-color: #0d6efd; ">Work Today is
+                            Done!
+                            #Winning!</span>
+                        @endif --}}
                     </div>
                     <div class="p-4" style="margin-bottom: 100px;">
                         <img src="{{ asset('images/Saly-10.png') }}" style="max-height: 350px;">
@@ -129,7 +129,8 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Leave Application</p>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Leave Application
+                                </p>
                                 <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalPending}}</h2>
                             </div>
                             <div
@@ -145,7 +146,8 @@
                         style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
                         <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
                             <div>
-                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Reviewed Leave Application</p>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Reviewed Leave Application
+                                </p>
                                 <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalAccepted}}</h2>
                             </div>
                             <div
