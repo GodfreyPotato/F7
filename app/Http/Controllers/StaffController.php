@@ -81,7 +81,6 @@ class StaffController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('uploads/profile_images');
             $image->move($destinationPath, $filename);
-
             $user->image_path = 'uploads/profile_images/' . $filename;
         }
 

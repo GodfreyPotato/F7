@@ -38,7 +38,6 @@ class RegistrationController extends Controller
             'middlename' => 'required',
             'lastname' => 'required',
             'department' => 'required',
-
             'email' => 'required|email|unique:users',
 
         ]);
