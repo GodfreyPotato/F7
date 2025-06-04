@@ -62,18 +62,18 @@ class AdminController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'firstname' =>'required',
-            'middlename'=>'required',
-            'lastname'=>'required'
+            'firstname' => 'required',
+            'middlename' => 'required',
+            'lastname' => 'required'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
         $user->firstname = $request->firstname;
-        
+
         $user->middlename = $request->middlename;
-        
+
         $user->lastname = $request->lastname;
         $user->save();
         return redirect()->route('staffListing');
@@ -105,7 +105,6 @@ class AdminController extends Controller
         }
 
         if ($isGenerated->isGenerated == 0) {
-            $isGenerated->user_id = Auth::id();
             $isGenerated->generated_date = now();
             $isGenerated->isGenerated = 1;
             $isGenerated->save();

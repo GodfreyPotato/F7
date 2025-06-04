@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('is_undertime_generateds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->date('generated_date');
             $table->integer('isGenerated')->default(0);
             $table->timestamps();

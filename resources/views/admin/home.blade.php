@@ -11,16 +11,16 @@
                         <span style="font-size: 26px;" class="fw-light mb-3"><span id="clock"></span>
                         <h1 style="margin-bottom: 0;">Welcome Back, {{ auth()->user()->firstname }}!</h1>
                         <p style="margin-bottom: 0;">Here's what's happening in your HR system today.</p>
-                        @if ($isGenerated->isGenerated == 0)
-                            <a href="{{route('generateAllUndertime')}}"> <span class="btn p-2 mt-3 text-white"
-                                    style="background-color: #0d6efd;">Generate All
-                                    Undertime Today</span></a>
-                        @else
-                            <span class="rounded p-2 mt-3 text-white"
-                                style="text-align: center; background-color: #0d6efd; ">Work Today is
-                                Done!
-                                #Winning!</span>
-                        @endif
+                        {{-- @if ($isGenerated->isGenerated == 0)
+                        <a href="{{route('generateAllUndertime')}}"> <span class="btn p-2 mt-3 text-white"
+                                style="background-color: #0d6efd;">Generate All
+                                Undertime Today</span></a>
+                        @else --}}
+                        {{-- <span class="rounded p-2 mt-3 text-white"
+                            style="text-align: center; background-color: #0d6efd; ">Work Today is
+                            Done!
+                            #Winning!</span>
+                        @endif --}}
                     </div>
                     <div class="p-4" style="margin-bottom: 100px;">
                         <img src="{{ asset('images/Saly-10.png') }}" style="max-height: 350px;">
@@ -161,6 +161,72 @@
                     </a>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+
+            @php
+                use App\Models\Letter;
+                use App\Models\User;
+
+                $totalPending = Letter::where('letter_status', 'pending')
+                    ->count();
+
+                $totalEmployees = User::where('role', '!=', 'admin')->count();
+                $totalAccepted = Letter::where('letter_status', '!=', 'pending')->count();
+            @endphp
+            <div class="row g-3 mt-3">
+                <div class="col-12 col-md-4">
+                    <div class="card"
+                        style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
+                        <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
+                            <div>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Total employees</p>
+                                <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalEmployees}}</h2>
+                            </div>
+                            <div
+                                style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color: rgba(13, 110, 253, 0.1);">
+                                <img src="{{ asset('images/user-profile-group-b.png') }}"
+                                    style="height: 25px; width: 25px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="card"
+                        style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
+                        <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
+                            <div>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Pending Leave Application
+                                </p>
+                                <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalPending}}</h2>
+                            </div>
+                            <div
+                                style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color: #DBEAFE;">
+                                <img src="{{ asset('images/clock.png') }}" style="height: 25px; width: 25px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="card"
+                        style="border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
+                        <div class="card-body d-flex justify-content-between align-items-center" style="padding: 16px;">
+                            <div>
+                                <p style="color: #6c757d; margin-bottom: 4px; font-size: 14px;">Reviewed Leave Application
+                                </p>
+                                <h2 style="margin-bottom: 0; font-weight: 700;">{{$totalAccepted}}</h2>
+                            </div>
+                            <div
+                                style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color:  #DBEAFE;">
+                                <img src="{{ asset('images/office-building.png') }}" style="height: 25px; width: 25px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+>>>>>>> 95a120be36a6a8f93c6a6839c38b3db970b8633c
         </div>
     </div>
 

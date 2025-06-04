@@ -18,6 +18,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 
+Route::get('/generateAllUndertime/lock', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
 Route::middleware('auth')->group(function () {
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -28,7 +29,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('searchEmployee/{word?}', [UserController::class, 'search'])->name('searchEmployee');
         Route::resource('admin', AdminController::class);
-        Route::get('/generateAllUndertime', [AdminController::class, 'computeAllUndertime'])->name('generateAllUndertime');
         Route::resource('leave', LeaveController::class);
 
         Route::resource('letter', LetterController::class)->only(['show', 'create']);
@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
         Route::get('/filterPDF/{month?}/{year?}', [PdfController::class, "filterPDF"]);
         Route::get('/filterDate', [AttendanceController::class, "filterDate"]);
-        Route::post('/editStaff/{user}',[AdminController::class, "editStaff"])->name('editStaff');
+        Route::post('/editStaff/{user}', [AdminController::class, "editStaff"])->name('editStaff');
     });
 
 
