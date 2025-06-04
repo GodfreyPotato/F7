@@ -20,6 +20,15 @@
 
         return $result;
     }
+    $defaultFooter = "Very truly yours,
+
+
+
+        ___________________________  
+        Dr. Juan Dela Cruz  
+        Dean, College of Arts and Sciences  
+        Pangasinan State University – Urdaneta City Campus  ";
+
 @endphp
 
 <!DOCTYPE html>
@@ -334,27 +343,38 @@
             </table>
         </div>
         @if($preview == 0)
-            <div style="position: fixed; bottom: 0; left: 0;  text-align: start; font-size: 12px;">
-                Very truly yours, <br>
-
-                <br>
-                ___________________________<br>
-                Dr. Juan Dela Cruz<br>
-                Dean, College of Arts and Sciences<br>
-                Pangasinan State University – Urdaneta City Campus <br>
-                (Editable section)
+            <div style="position: fixed; bottom: 0; left: 0;  text-align: start; font-size: 12px;" id="footerDownload">
+                {!!$footer!!}
             </div>
         @endif
     </div>
 
     @if ($preview == 1)
-        <a href="{{route('pdfDownload')}}" target="_blank">Download</a>
+        <div class="d-flex ">
+            <div class="me-5">
+
+                <button class="btn btn-primary btn-sm" id="downloadBtn" target="_blank">Download</button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <label class="me-5">For Footer</label>
+                <textarea name="" class="form-control" style="width: 400px;" id="footermsg">{{$defaultFooter}}</textarea>
+            </div>
+        </div>
     @endif
 
 
 
     <script>
         $(document).ready(function () {
+
+            $('#downloadBtn').on('click', function () {
+
+                const footer = encodeURIComponent($('#footermsg').val());
+                const url = `/pdfDownload/${footer}`;
+                window.open(url, '_blank');
+            });
+
+
 
             $('#month, #year').on('change', function () {
                 var month = $('#month').val();
