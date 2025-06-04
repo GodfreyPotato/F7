@@ -2,7 +2,6 @@
 @section('content')
 
     @php
-
         function convertMinutesToHoursMins($minutes)
         {
             $hours = floor($minutes / 60);
@@ -125,7 +124,8 @@
                     @php
 
                         $date = $start->copy()->addDays($day - 1)->format('Y-m-d');
-                        $log = $attendance[$ctr]->log_date == $date ? $attendance[$ctr] : null;
+                        $log = (isset($attendance[$ctr]) && $attendance[$ctr]->log_date == $date) ? $attendance[$ctr] : null;
+
 
 
                         $statusClass = '';

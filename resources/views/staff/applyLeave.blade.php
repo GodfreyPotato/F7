@@ -14,6 +14,17 @@
                 <span style="font-size: 20px;"
                     class="fw-bold d-flex justify-content-center mb-3 mt-2">{{Auth::user()->firstname}}
                     {{Auth::user()->lastname}}</span>
+                
+                <div class="mb-3 text-center">
+                    @if (Auth::user()->image_path)
+                        <img src="{{ asset(Auth::user()->image_path) }}" alt="Profile Image" class="mb-2"
+                            style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin: 0 auto; display: block;">
+                    @else
+                        <img src="{{ asset('images/default-profile.jpg') }}" alt="Default Profile" class="mb-2"
+                            style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin: 0 auto; display: block;">
+                    @endif
+                </div>
+                
                 <div class="d-flex justify-content-between" style="margin-bottom: -10px;">
                     <p style="color: #878585;">Department:</p>
                     <p>{{Auth::user()->department}}</p>
