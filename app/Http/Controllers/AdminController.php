@@ -23,7 +23,6 @@ class AdminController extends Controller
 
         if (!$isGenerated) {
             $isGenerated = new IsUndertimeGenerated;
-            $isGenerated->user_id = Auth::id();
             $isGenerated->generated_date = Carbon::today();
             $isGenerated->save();
         }
