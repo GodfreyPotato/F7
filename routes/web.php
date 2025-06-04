@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/timeOutPm', [LogController::class, 'timeOutPm'])->name('timeOutPm');
         Route::get('/users', [LogController::class, 'logs'])->name('showLogs');
 
-        Route::post('/editProfile/{id}', [StaffController::class, 'update'])->name('editProfile');
+        Route::put('/editProfile/{id}', [StaffController::class, 'update'])->name('editProfile');
 
         // Attendance routes
         Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
