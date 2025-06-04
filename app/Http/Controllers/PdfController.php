@@ -18,7 +18,15 @@ class PdfController extends Controller
      */
     public function index()
     {
-        $defaultFooter = footer::first()->footer;
+        $defaultFooter = footer::first();
+        if ($defaultFooter) {
+            $defaultFooter = $defaultFooter->footer;
+        } else {
+            $defaultFooter = new footer;
+            $defaultFooter->save();
+            $defaultFooter = $defaultFooter->footer;
+        }
+
         $preview = 1;
         $ni = User::where('role',  'ni')
             ->where(function ($query) {
@@ -63,7 +71,7 @@ class PdfController extends Controller
     }
 
     //shows the pdf file
-    public function download(String $footer)
+    public function download(String $footer = "")
     {
         $defaultFooter = footer::first();
 
