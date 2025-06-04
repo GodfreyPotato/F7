@@ -61,9 +61,8 @@ class PdfController extends Controller
     }
 
     //shows the pdf file
-    public function download(String $footer)
+    public function download()
     {
-        $footer = nl2br(e($footer));
         $preview = 0;
         $ni = User::where('role',  'ni')
             ->where(function ($query) {
@@ -100,7 +99,7 @@ class PdfController extends Controller
             })->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
-        $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview', 'footer'));
+        $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview'));
 
         return $pdf->stream('document.pdf');
     }
