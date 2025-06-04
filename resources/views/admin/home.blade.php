@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
     <div class="d-flex justify-content-center align-items-center"
-        style="height: 90vh; margin-top: 5vw; margin-bottom: 5vw;">
+        style="height: 90vh; margin-top: 15vw; margin-bottom: 5vw;">
         <div class="container">
 
             <div class="card mb-4"
@@ -99,7 +99,7 @@
                     )
                     ->where('created_at', '>=', $startDate)
                     ->groupByRaw('YEAR(created_at), MONTH(created_at)')
-                    ->orderByRaw('YEAR(created_at) DESC, MONTH(created_at) DESC')
+                    ->orderByRaw('YEAR(created_at) ASC, MONTH(created_at) ASC')
                     ->get();
                 // Prepare data for the chart
                 $months = [];
