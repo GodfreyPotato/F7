@@ -20,14 +20,7 @@
 
         return $result;
     }
-    $defaultFooter = "Very truly yours,
 
-
-
-        ___________________________  
-        Dr. Juan Dela Cruz  
-        Dean, College of Arts and Sciences  
-        Pangasinan State University – Urdaneta City Campus  ";
 
 @endphp
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //needed for loadView
 
+use App\Models\footer;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -17,6 +18,7 @@ class PdfController extends Controller
      */
     public function index()
     {
+        $defaultFooter = footer::first()->footer;
         $preview = 1;
         $ni = User::where('role',  'ni')
             ->where(function ($query) {
@@ -57,12 +59,25 @@ class PdfController extends Controller
             ->get();
 
 
-        return view('pdf.pdf', compact('ni', 'ins', 'preview'));
+        return view('pdf.pdf', compact('ni', 'ins', 'preview', 'defaultFooter'));
     }
 
     //shows the pdf file
     public function download()
     {
+        $defaultFooter = footer::first();
+
+        $footer = nl2br(e(value: $footer));
+        if ($defaultFooter) {
+            $defaultFooter->footer = $footer;
+            $defaultFooter->save();
+        } else {
+            $defaultFooter = new footer;
+            $defaultFooter->footer = $footer;
+            $defaultFooter->save();
+        }
+
+
         $preview = 0;
         $ni = User::where('role',  'ni')
             ->where(function ($query) {
