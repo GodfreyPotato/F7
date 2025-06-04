@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('footers', function (Blueprint $table) {
 
             $table->id();
-            $table->string('footer');
+            $table->string('footer')->default("Default Footer Value");
             $table->timestamps();
         });
     }

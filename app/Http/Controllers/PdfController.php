@@ -18,7 +18,15 @@ class PdfController extends Controller
      */
     public function index()
     {
-        $defaultFooter = footer::first()->footer;
+        $defaultFooter = footer::first();
+        if ($defaultFooter) {
+            $defaultFooter = $defaultFooter->footer;
+        } else {
+            $defaultFooter = new footer;
+            $defaultFooter->save();
+            $defaultFooter = $defaultFooter->footer;
+        }
+
         $preview = 1;
         $ni = User::where('role',  'ni')
             ->where(function ($query) {
@@ -63,11 +71,11 @@ class PdfController extends Controller
     }
 
     //shows the pdf file
-    public function download()
+        public function download(String $footer = "")
     {
         $defaultFooter = footer::first();
 
-        $footer = nl2br(e(value: $footer));
+        $footer = nl2br(e($footer));
         if ($defaultFooter) {
             $defaultFooter->footer = $footer;
             $defaultFooter->save();
@@ -114,11 +122,11 @@ class PdfController extends Controller
             })->orderBy('lastname', 'asc')
             ->with(['logs', 'leaves.letter'])
             ->get();
-        $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview'));
+        $pdf = Pdf::loadView('pdf.pdf', compact('ins', 'ni', 'preview', 'footer'));
 
         return $pdf->stream('document.pdf');
     }
-
+    
     public function filterPDF(?int $month, ?int $year)
     {
 

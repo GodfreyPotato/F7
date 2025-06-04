@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/approveLetter/{letter}', [LetterController::class, 'approve'])->name('approveLetter');
         Route::post('/reject/{letter}', [LetterController::class, 'reject'])->name('rejectLetter');
         Route::resource('pdf', PdfController::class);
-        Route::get('/pdfDownload/{footer}', [PdfController::class, 'download'])->name('pdfDownload');
+        Route::get('/pdfDownload/{footer?}', [PdfController::class, 'download'])->name('pdfDownload');
         Route::post('/addSaturdayService', [ServiceController::class, "store"])->name('addSaturday');
         Route::get('/attendanceLogs', [AttendanceController::class, 'attendanceLogs'])->name('attendanceLogs');
         Route::get('/filterPDF/{month?}/{year?}', [PdfController::class, "filterPDF"]);
